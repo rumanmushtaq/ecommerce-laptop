@@ -10,7 +10,7 @@ import {
   type HTMLMotionProps,
 } from 'motion/react'
 import { Star } from 'lucide-react'
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { Scramble, VelocitySkew } from './motion'
 
 export const EASE = [0.16, 1, 0.3, 1] as const
@@ -236,7 +236,7 @@ export function Tilt({ children, className = '', max = 8 }: { children: ReactNod
 
 export function Stars({ value, size = 14 }: { value: number; size?: number }) {
   return (
-    <span className="inline-flex items-center gap-0.5" aria-label={`${value} out of 5 stars`}>
+    <span role="img" className="inline-flex items-center gap-0.5" aria-label={`${value} out of 5 stars`}>
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}
@@ -254,21 +254,22 @@ export function CountUp({ to, decimals = 0, suffix = '', prefix = '' }: { to: nu
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true, margin: '-10% 0px' })
   const reduce = useReducedMotion()
-  const [val, setVal] = useState(0)
+  const fmt = (v: number) => `${prefix}${v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}${suffix}`
+  // Writes straight to the DOM each frame instead of re-rendering React 60×/s
   useEffect(() => {
-    if (!inView) return
+    const el = ref.current
+    if (!inView || !el) return
     if (reduce) {
-      setVal(to)
+      el.textContent = fmt(to)
       return
     }
-    const c = animate(0, to, { duration: 2, ease: EASE, onUpdate: setVal })
+    const c = animate(0, to, { duration: 2, ease: EASE, onUpdate: (v) => (el.textContent = fmt(v)) })
     return () => c.stop()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView, to, reduce])
   return (
     <span ref={ref} className="tabular-nums">
-      {prefix}
-      {val.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}
-      {suffix}
+      {fmt(0)}
     </span>
   )
 }

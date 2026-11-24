@@ -1,8 +1,7 @@
 'use client'
 
 import { MotionConfig } from 'motion/react'
-import { useCallback, useState } from 'react'
-import { Cursor, Preloader, ScrollProgress } from './layout/Chrome'
+import { Cursor, ScrollProgress } from './layout/Chrome'
 import { Navbar } from './layout/Navbar'
 import { BagDrawer, MobileMenu, SearchOverlay, Toasts } from './layout/Overlays'
 import { Footer } from './layout/Footer'
@@ -29,20 +28,16 @@ function SmoothScroll() {
 }
 
 export default function NoctisApp() {
-  const [ready, setReady] = useState(false)
-  const onLoaded = useCallback(() => setReady(true), [])
-
   return (
     <MotionConfig reducedMotion="user">
       <StoreProvider>
         <SmoothScroll />
         <AuroraBackdrop />
-        <Preloader onDone={onLoaded} />
         <ScrollProgress />
         <Cursor />
-        <Navbar ready={ready} />
+        <Navbar />
         <main className="grain">
-          <Hero ready={ready} />
+          <Hero />
           <TrustStrip />
           <Collections />
           <FeaturedProducts />

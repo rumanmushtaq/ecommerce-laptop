@@ -66,7 +66,8 @@ export function LazyImage({ src, alt, className = '', imgClassName = '', ratio, 
       {!settled && (
         <span aria-hidden className={`pointer-events-none absolute inset-0 overflow-hidden transition-opacity duration-700 ${loaded ? 'opacity-0' : 'opacity-100'}`}>
           {preview && <span className="absolute inset-[6%] scale-105 bg-contain bg-center bg-no-repeat opacity-70 blur-lg" style={{ backgroundImage: `url(${preview})` }} />}
-          {!loaded && (
+          {/* Shimmer only while actually downloading: idle offscreen placeholders must not animate */}
+          {near && !loaded && (
             <span className="absolute inset-y-0 left-0 w-full -translate-x-full animate-[shimmer_1.6s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/[0.07] to-transparent" />
           )}
         </span>

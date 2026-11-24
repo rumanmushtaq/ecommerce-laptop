@@ -31,6 +31,19 @@ function useCountdown() {
   return [Math.floor(s / 86400), Math.floor((s % 86400) / 3600), Math.floor((s % 3600) / 60), s % 60]
 }
 
+/** Isolated so the per-second tick re-renders four digits, not the whole Offers section. */
+function Countdown() {
+  const [d, h, m, s] = useCountdown()
+  return (
+    <>
+      <Digit value={d} label="days" />
+      <Digit value={h} label="hrs" />
+      <Digit value={m} label="min" />
+      <Digit value={s} label="sec" />
+    </>
+  )
+}
+
 function Digit({ value, label }: { value: number; label: string }) {
   const v = String(value).padStart(2, '0')
   return (
@@ -113,7 +126,6 @@ function TradeIn() {
 }
 
 export function Offers() {
-  const [d, h, m, s] = useCountdown()
   const shop = useShopCategory()
   const claimed = 68
 
@@ -143,10 +155,7 @@ export function Offers() {
                   <p className="mt-3 max-w-sm text-sm text-mist">{deal.blurb}</p>
                 </div>
                 <div className="flex shrink-0 gap-3 sm:gap-5" aria-label="Time left in sale">
-                  <Digit value={d} label="days" />
-                  <Digit value={h} label="hrs" />
-                  <Digit value={m} label="min" />
-                  <Digit value={s} label="sec" />
+                  <Countdown />
                 </div>
               </div>
 

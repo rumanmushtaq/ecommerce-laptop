@@ -1,8 +1,8 @@
 import { AnimatePresence, motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { formatPrice, products } from '../../data/catalog'
-import { useWebGL } from '../../lib/hooks'
+import { useCan3D } from '../../lib/hooks'
 import { smooth } from '../../lib/smoothScroll'
 import { Scramble } from '../ui/motion'
 import { useStore } from '../../lib/store'
@@ -56,13 +56,9 @@ export function Showcase() {
   const [mounted, setMounted] = useState(false)
   const [step, setStep] = useState(0)
   const { addToCart } = useStore()
-  const webgl = useWebGL()
-  if (near && !mounted) setMounted(true)
-  useEffect(() => {
-    const idle = (window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 2500))) as (cb: () => void) => number
-    const id = idle(() => setMounted(true))
-    return () => (window.cancelIdleCallback ?? clearTimeout)(id)
-  }, [])
+  // Phones and low-end devices get the still render; 3D only boots when the section is near
+  const can3D = useCan3D()
+  if (near && can3D && !mounted) setMounted(true)
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   useMotionValueEvent(scrollYProgress, 'change', (v) => setStep(Math.min(chapters.length - 1, Math.floor(v * chapters.length))))
@@ -147,7 +143,7 @@ export function Showcase() {
 
           {/* 3D */}
           <div className="relative order-1 min-h-0 lg:order-2 lg:h-[78svh]">
-            {webgl ? (
+            {can3D ? (
               mounted && (
                 <>
                   <ShowcaseScene progress={scrollYProgress} active={visible} reduced={reduce} />
@@ -178,7 +174,7 @@ export function Showcase() {
         {/* Chapter rail */}
         <div className="relative mx-auto mb-5 grid w-full max-w-[1520px] grid-cols-4 gap-2 section-pad lg:mb-8">
           {chapters.map((ch, i) => (
-            <button key={ch.label} onClick={() => jump(i)} className="group text-left" data-cursor="hover" aria-label={`Go to ${ch.label}`}>
+            <button key={ch.label} onClick={() => jump(i)} className="group text-left" data-cursor="hover">
               <div className="h-[2px] overflow-hidden rounded-full bg-white/10">
                 <motion.div
                   className="h-full origin-left"

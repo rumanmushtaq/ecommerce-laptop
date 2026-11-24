@@ -36,6 +36,53 @@ export function useWebGL() {
   return ok
 }
 
+type Nav = Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } }
+
+/** Whether this device should run live 3D: WebGL, no reduced motion / data saver, 4+ cores, 4GB+ RAM, tablet width or wider. */
+function capable3D() {
+  if (!hasWebGL()) return false
+  const nav = navigator as Nav
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || nav.connection?.saveData) return false
+  if ((nav.hardwareConcurrency ?? 4) < 4 || (nav.deviceMemory ?? 8) < 4) return false
+  return window.matchMedia('(min-width: 768px)').matches
+}
+
+/** 'high' devices get post-processing and live shadows; everyone else gets the lean scene. */
+export function gpuTier(): 'high' | 'mid' {
+  const nav = navigator as Nav
+  return (nav.hardwareConcurrency ?? 4) >= 8 && (nav.deviceMemory ?? 8) >= 8 ? 'high' : 'mid'
+}
+
+/** Live 3D allowed on this device; null until known (after mount). */
+export function useCan3D() {
+  const [ok, setOk] = useState<boolean | null>(null)
+  useEffect(() => setOk(capable3D()), [])
+  return ok
+}
+
+/**
+ * True once the page has fully loaded and the browser is idle, on capable devices only.
+ * Lets the hero paint instantly with a still image and swap to 3D without blocking first load.
+ */
+export function useDeferred3D() {
+  const [go, setGo] = useState(false)
+  useEffect(() => {
+    if (!capable3D()) return
+    let idle = 0
+    const ric = (window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 1200))) as (cb: () => void, o?: { timeout: number }) => number
+    const start = () => {
+      idle = ric(() => setGo(true), { timeout: 3000 })
+    }
+    if (document.readyState === 'complete') start()
+    else window.addEventListener('load', start, { once: true })
+    return () => {
+      window.removeEventListener('load', start)
+      ;(window.cancelIdleCallback ?? window.clearTimeout)(idle)
+    }
+  }, [])
+  return go
+}
+
 /** Smoothly scroll to a section id. */
 export function scrollToId(id: string) {
   const el = document.getElementById(id)

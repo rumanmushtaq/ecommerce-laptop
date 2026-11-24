@@ -18,8 +18,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${instrument.variable}`}>
-      <body>{children}</body>
+    <html
+      lang="en"
+      className={`${geist.variable} ${geistMono.variable} ${instrument.variable}`}
+      style={{ backgroundColor: '#0b0a14', colorScheme: 'dark' }}
+    >
+      <body style={{ backgroundColor: '#0b0a14', color: '#eeeaf7' }}>{children}</body>
     </html>
   )
 }

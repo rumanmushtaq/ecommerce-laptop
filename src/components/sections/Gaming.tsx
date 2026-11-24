@@ -46,13 +46,11 @@ export function Gaming() {
         <div className="absolute inset-x-0 bottom-0 h-[55%] [perspective:500px]">
           <div className="absolute inset-0 origin-bottom [transform:rotateX(65deg)] [mask-image:linear-gradient(to_top,black_20%,transparent)] overflow-hidden">
             <div
-              className="absolute inset-x-0 bottom-0"
+              className="grid-anim absolute inset-x-0 bottom-0 [--grid-speed:1.2s]"
               style={{
                 backgroundImage: 'linear-gradient(rgba(255,122,182,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(143,123,255,0.45) 1px, transparent 1px)',
                 backgroundSize: '64px 64px',
                 top: '-64px',
-                willChange: 'transform',
-                animation: 'grid-run 1.2s linear infinite',
               }}
             />
           </div>

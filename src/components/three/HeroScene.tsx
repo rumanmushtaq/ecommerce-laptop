@@ -13,19 +13,23 @@ interface Props {
   started: boolean
   reduced: boolean
   compact: boolean
+  /** Skip the fly-in/lid-open intro: the scene fades in over a still render already showing the open laptop */
+  instant?: boolean
+  /** 'high' adds bloom and live contact shadows; 'mid' keeps the lean scene */
+  tier?: 'high' | 'mid'
   onReady?: () => void
 }
 
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
 const clamp01 = (t: number) => Math.min(1, Math.max(0, t))
 
-function Rig({ progress, started, reduced, compact }: Omit<Props, 'active' | 'onReady'>) {
+function Rig({ progress, started, reduced, compact, instant = false, tier = 'mid' }: Omit<Props, 'active' | 'onReady'>) {
   const root = useRef<Group>(null)
   const product = useRef<Group>(null)
   const floaters = useRef<Group>(null)
   const drive = useRef({ lid: reduced ? 1.85 : 0, power: reduced ? 1 : 0 })
   // Own intro timer: R3F resets clock.elapsedTime whenever frameloop toggles
-  const intro = useRef(0)
+  const intro = useRef(instant ? 10 : 0)
   const camTarget = useMemo(() => new Vector3(), [])
 
   useFrame((state, dt) => {
@@ -90,7 +94,8 @@ function Rig({ progress, started, reduced, compact }: Omit<Props, 'active' | 'on
       <group ref={floaters}>
         <Floaters compact={compact} reduced={reduced} />
       </group>
-      <ContactShadows position={[0, -0.115, 0]} opacity={0.7} scale={8} blur={2.6} far={2.2} resolution={256} color="#000" />
+      {/* Live shadows re-render every frame; mid-tier devices bake them once */}
+      <ContactShadows position={[0, -0.115, 0]} opacity={0.7} scale={8} blur={2.6} far={2.2} resolution={256} color="#000" frames={tier === 'high' ? Infinity : 1} />
       {!reduced && <Floor />}
     </group>
   )
@@ -140,15 +145,7 @@ function Orb({ r }: { r: number }) {
   return (
     <mesh>
       <sphereGeometry args={[r, 48, 48]} />
-      <meshPhysicalMaterial
-        color="#1a1a1f"
-        metalness={1}
-        roughness={0.08}
-        iridescence={1}
-        iridescenceIOR={1.6}
-        iridescenceThicknessRange={[200, 800]}
-        clearcoat={1}
-      />
+      <meshStandardMaterial color="#2a2638" metalness={1} roughness={0.12} />
     </mesh>
   )
 }
@@ -173,7 +170,7 @@ function Floaters({ compact, reduced }: { compact: boolean; reduced: boolean }) 
         <>
           <Float speed={speed * 1.1} rotationIntensity={1} floatIntensity={0.8} position={[-1.9, -0.95, 1.1]} rotation={[0.3, 0.6, 0.2]}>
             <RoundedBox args={[0.34, 0.2, 0.34]} radius={0.05} smoothness={4}>
-              <meshPhysicalMaterial color="#b9a6ff" roughness={0.35} clearcoat={0.6} />
+              <meshStandardMaterial color="#b9a6ff" roughness={0.35} />
             </RoundedBox>
           </Float>
           <Float speed={speed * 0.7} rotationIntensity={0.6} floatIntensity={0.7} position={[2.15, -1.05, 1.1]}>
@@ -214,12 +211,12 @@ function OrbitLights({ reduced }: { reduced: boolean }) {
 export default function HeroScene({ active, onReady, ...rest }: Props) {
   // Adaptive quality: drop resolution and post-processing on slower GPUs so scrolling stays smooth
   const [dpr, setDpr] = useState(rest.compact ? 1.25 : 1.5)
-  const [fx, setFx] = useState(!rest.compact)
+  const [fx, setFx] = useState(!rest.compact && rest.tier === 'high')
   return (
     <Canvas
       frameloop={active ? 'always' : 'demand'}
       dpr={dpr}
-      camera={{ position: [0, 3.6, 13.5], fov: 30 }}
+      camera={{ position: rest.instant ? [0, 1.5, 8.6] : [0, 3.6, 13.5], fov: 30 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       onCreated={({ camera }) => {
         camera.lookAt(0, 0.2, 0)

@@ -10,7 +10,7 @@ import {
   useVelocity,
   wrap,
 } from 'motion/react'
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { EASE } from './primitives'
 
 /** Skew (deg) that follows how fast the page is scrolling — headings lean into the motion. */
@@ -36,40 +36,47 @@ const GLYPHS = '!<>-_\\/[]{}—=+*^?#ABCDEFGHJKLMNOPQRSTUVWXYZ0123456789'
 /** Text that resolves out of random glyphs when it scrolls into view. */
 export function Scramble({ text, className = '', delay = 0 }: { text: string; className?: string; delay?: number }) {
   const ref = useRef<HTMLSpanElement>(null)
+  const out = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref, { once: true, margin: '-10% 0px' })
   const reduce = useReducedMotion()
-  const [out, setOut] = useState(text)
 
+  // Animates the text node directly; React renders once and never re-renders per frame
   useEffect(() => {
-    if (!inView || reduce) return
+    const el = out.current
+    if (!inView || reduce || !el) return
     let frame = 0
     let raf = 0
     const total = 26 + text.length
     const start = performance.now() + delay * 1000
+    const glyph = () => GLYPHS[(Math.random() * GLYPHS.length) | 0]
     const tick = (now: number) => {
       if (now < start) {
-        setOut(text.replace(/\S/g, () => GLYPHS[(Math.random() * GLYPHS.length) | 0]))
+        el.textContent = text.replace(/\S/g, glyph)
         raf = requestAnimationFrame(tick)
         return
       }
       frame++
       const revealed = Math.floor((frame / total) * text.length * 1.6)
-      setOut(
-        text
-          .split('')
-          .map((c, i) => (i < revealed || c === ' ' ? c : GLYPHS[(Math.random() * GLYPHS.length) | 0]))
-          .join(''),
-      )
+      el.textContent = text
+        .split('')
+        .map((c, i) => (i < revealed || c === ' ' ? c : glyph()))
+        .join('')
       if (revealed < text.length) raf = requestAnimationFrame(tick)
-      else setOut(text)
+      else el.textContent = text
     }
     raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+    return () => {
+      cancelAnimationFrame(raf)
+      el.textContent = text
+    }
   }, [inView, reduce, text, delay])
 
   return (
-    <span ref={ref} className={className} aria-label={text}>
-      <span aria-hidden>{out}</span>
+    <span ref={ref} className={className}>
+      <span className="sr-only">{text}</span>
+      <span ref={out} aria-hidden>
+        {text}
+      </span>
     </span>
   )
 }

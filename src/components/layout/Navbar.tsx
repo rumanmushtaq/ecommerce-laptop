@@ -110,7 +110,7 @@ function PromoBar({ onClose }: { onClose: () => void }) {
   )
 }
 
-export function Navbar({ ready }: { ready: boolean }) {
+export function Navbar() {
   const { open, count, wishlist, cartPulse } = useStore()
   const shop = useShopCategory()
   const { scrollY } = useScroll()
@@ -140,8 +140,8 @@ export function Navbar({ ready }: { ready: boolean }) {
 
   return (
     <motion.header
-      initial={{ y: -90, opacity: 0 }}
-      animate={ready ? { y: hidden ? -90 : 0, opacity: 1 } : undefined}
+      initial={false}
+      animate={{ y: hidden ? -90 : 0 }}
       transition={{ duration: 0.8, ease: EASE, delay: hidden ? 0 : 0.1 }}
       className="fixed inset-x-0 top-0 z-50"
       onMouseLeave={() => setMega(false)}
@@ -150,7 +150,7 @@ export function Navbar({ ready }: { ready: boolean }) {
       <div
         className={`mx-3 mt-3 flex h-16 max-w-[1520px] items-center justify-between rounded-full px-2 transition-[background,border-color,box-shadow] duration-500 sm:px-4 md:mx-5 min-[1560px]:mx-auto ${
           solid || mega
-            ? 'border border-white/[0.07] bg-ink/70 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl'
+            ? 'border border-white/[0.07] bg-ink/95 lg:bg-ink/70 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.9)] backdrop-blur-xl'
             : 'border border-transparent'
         }`}
       >

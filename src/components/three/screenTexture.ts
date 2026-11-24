@@ -693,9 +693,12 @@ function dashboardApp(ctx: Ctx, img: HTMLImageElement, _accent: string) {
 }
 
 function gameApp(ctx: Ctx, img: HTMLImageElement, a: string) {
-  ctx.filter = 'contrast(1.18) saturate(1.3) brightness(0.92)'
   cover(ctx, img, 0, 0, W, H, 0.5, 0.6, 1.08)
-  ctx.filter = 'none'
+  // Cheap contrast punch instead of a full-screen CSS filter (filters are CPU-bound on canvas)
+  ctx.globalCompositeOperation = 'overlay'
+  ctx.fillStyle = 'rgba(40,30,60,0.35)'
+  ctx.fillRect(0, 0, W, H)
+  ctx.globalCompositeOperation = 'source-over'
   // colour grade + vignette
   const grade = ctx.createLinearGradient(0, 0, W, H)
   grade.addColorStop(0, 'rgba(143,123,255,0.22)')
@@ -784,9 +787,14 @@ function gameApp(ctx: Ctx, img: HTMLImageElement, a: string) {
 }
 
 function browserApp(ctx: Ctx, img: HTMLImageElement, a: string) {
-  ctx.filter = 'blur(2px) brightness(0.8)'
-  cover(ctx, img, -20, -20, W + 40, H + 40, 0.5, 0.3)
-  ctx.filter = 'none'
+  // Blur by drawing tiny then scaling up (bilinear) — far cheaper than ctx.filter blur
+  const tiny = document.createElement('canvas')
+  tiny.width = 160
+  tiny.height = 102
+  cover(tiny.getContext('2d')!, img, 0, 0, 160, 102, 0.5, 0.3)
+  ctx.drawImage(tiny, 0, 0, W, H)
+  ctx.fillStyle = 'rgba(0,0,0,0.2)'
+  ctx.fillRect(0, 0, W, H)
   menubar(ctx, 'Arcwise')
   const x = 90
   const y = 58

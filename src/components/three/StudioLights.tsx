@@ -9,7 +9,7 @@ export function StudioLights({ mood = 'brand' }: { mood?: 'brand' | 'neon' | 'ne
     <>
       <ambientLight intensity={0.25} />
       <directionalLight position={[3, 6, 4]} intensity={1.2} />
-      <Environment resolution={256} frames={1}>
+      <Environment resolution={128} frames={1}>
         <color attach="background" args={['#0b0b0d']} />
         {/* Key softbox overhead */}
         <Lightformer form="rect" intensity={3} position={[0, 6, 1]} rotation-x={Math.PI / 2} scale={[8, 3, 1]} />
