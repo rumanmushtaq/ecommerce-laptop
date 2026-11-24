@@ -39,14 +39,15 @@ export function Collections() {
               animate={{ flexGrow: on ? 4.2 : 1 }}
               transition={{ duration: 0.9, ease: EASE }}
               data-cursor="hover"
-              className="group relative basis-0 cursor-pointer overflow-hidden rounded-[28px] border border-white/[0.07] bg-graphite"
+              className="group relative basis-0 cursor-pointer overflow-hidden rounded-[28px] border bg-graphite transition-colors duration-700"
+              style={{ borderColor: on ? `${c.accent}aa` : 'rgba(255,255,255,0.08)', boxShadow: on ? `0 40px 100px -50px ${c.accent}` : 'none' }}
             >
               <motion.div
                 aria-hidden
                 className="absolute inset-0"
                 animate={{ opacity: on ? 1 : 0.7 }}
                 transition={{ duration: 0.9 }}
-                style={{ background: `radial-gradient(90% 70% at 65% 55%, ${c.accent}33, transparent 70%), linear-gradient(180deg, #1a1828, #100f1b)` }}
+                style={{ background: `radial-gradient(90% 70% at 60% 45%, ${c.accent}66, transparent 72%), linear-gradient(180deg, #1a1828, #100f1b)` }}
               />
               <div aria-hidden className="absolute inset-0 opacity-[0.15] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
 
@@ -121,7 +122,7 @@ export function Collections() {
             key={c.id}
             onClick={() => shop(c.id)}
             className="relative flex h-[440px] w-[80vw] max-w-[380px] shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[24px] border border-white/[0.07] p-6 text-left"
-            style={{ background: `radial-gradient(90% 60% at 50% 35%, ${c.accent}30, transparent 70%), linear-gradient(180deg,#1a1828,#100f1b)` }}
+            style={{ background: `radial-gradient(90% 60% at 50% 35%, ${c.accent}60, transparent 72%), linear-gradient(180deg,#1a1828,#100f1b)` }}
           >
             <LazyImage
               src={c.image}

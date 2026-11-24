@@ -1,16 +1,13 @@
-import { AnimatePresence, motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { formatPrice, products } from '../../data/catalog'
-import { useCan3D } from '../../lib/hooks'
 import { smooth } from '../../lib/smoothScroll'
 import { Scramble } from '../ui/motion'
 import { useStore } from '../../lib/store'
 import { EASE, MagneticButton } from '../ui/primitives'
-import { LazyImage } from '../ui/LazyImage'
-import dynamic from 'next/dynamic'
+import { CompanionSlot } from '../companion/CompanionSlot'
 
-const ShowcaseScene = dynamic(() => import('../three/ShowcaseScene'), { ssr: false })
 const studio = products[0]
 
 const chapters = [
@@ -51,14 +48,8 @@ const chapters = [
 export function Showcase() {
   const ref = useRef<HTMLElement>(null)
   const reduce = !!useReducedMotion()
-  const near = useInView(ref, { margin: '600px 0px 600px 0px' })
-  const visible = useInView(ref)
-  const [mounted, setMounted] = useState(false)
   const [step, setStep] = useState(0)
   const { addToCart } = useStore()
-  // Phones and low-end devices get the still render; 3D only boots when the section is near
-  const can3D = useCan3D()
-  if (near && can3D && !mounted) setMounted(true)
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
   useMotionValueEvent(scrollYProgress, 'change', (v) => setStep(Math.min(chapters.length - 1, Math.floor(v * chapters.length))))
@@ -143,15 +134,10 @@ export function Showcase() {
 
           {/* 3D */}
           <div className="relative order-1 min-h-0 lg:order-2 lg:h-[78svh]">
-            {can3D ? (
-              mounted && (
-                <>
-                  <ShowcaseScene progress={scrollYProgress} active={visible} reduced={reduce} />
-                </>
-              )
-            ) : (
-              <LazyImage src={studio.image} alt="Noctis Studio 16" sizes="60vw" className="h-full w-full" />
-            )}
+            {/* The travelling laptop docks here and turns through the four chapters as you scroll */}
+            <div className="flex h-full items-center justify-center">
+              <CompanionSlot id="showcase" variant="noctis" pose="showcase" sizes="(min-width: 1024px) 55vw, 92vw" className="h-auto max-h-full w-full max-w-full" />
+            </div>
             {/* Spec callout */}
             <AnimatePresence mode="wait">
               <motion.div

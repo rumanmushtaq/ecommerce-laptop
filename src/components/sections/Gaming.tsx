@@ -8,12 +8,15 @@ import { MaskReveal, Scramble, useVelocitySkew } from '../ui/motion'
 import { useShopCategory } from '../layout/Navbar'
 import { AddButton } from './FeaturedProducts'
 import { LazyImage } from '../ui/LazyImage'
+import { CompanionSlot } from '../companion/CompanionSlot'
+import type { VariantKey } from '../three/variants'
 
-const rigs = [
-  { id: 'noctis-forge-x', short: 'Forge X desktop', image: '/renders/forge-hero.webp', fps: [214, 168, 181, 790] },
-  { id: 'msi-titan-18', short: 'Titan 18 HX', image: '/renders/titan-hero.webp', fps: [168, 131, 142, 612] },
-  { id: 'razer-blade-16', short: 'Blade 16', image: '/renders/stealth.webp', fps: [152, 118, 128, 571] },
-  { id: 'rog-zephyrus-g16', short: 'Zephyrus G16', image: '/renders/eclipse.webp', fps: [124, 96, 104, 498] },
+// Laptop rigs name the 3D design the travelling laptop morphs into; the desktop shows its render instead
+const rigs: { id: string; short: string; image: string; variant: VariantKey | 'none'; fps: number[] }[] = [
+  { id: 'msi-titan-18', short: 'Titan 18 HX', image: '/renders/titan-hero.webp', variant: 'titan', fps: [168, 131, 142, 612] },
+  { id: 'razer-blade-16', short: 'Blade 16', image: '/renders/stealth.webp', variant: 'stealth', fps: [152, 118, 128, 571] },
+  { id: 'rog-zephyrus-g16', short: 'Zephyrus G16', image: '/renders/eclipse.webp', variant: 'eclipse', fps: [124, 96, 104, 498] },
+  { id: 'noctis-forge-x', short: 'Forge X desktop', image: '/renders/forge-hero.webp', variant: 'none', fps: [214, 168, 181, 790] },
 ]
 const games = ['Cyberpunk 2077 · RT Ultra', 'Alan Wake 2 · High', 'Black Myth: Wukong · Very High', 'Valorant · Competitive']
 const MAX_FPS = [230, 180, 200, 820]
@@ -134,7 +137,15 @@ export function Gaming() {
             <MaskReveal>
             <motion.div style={{ y: imgY }} className="relative aspect-[16/11]">
               <div aria-hidden className="absolute inset-x-[10%] bottom-[8%] h-[30%] rounded-[50%] bg-plasma/40 blur-[70px]" />
+              <CompanionSlot
+                id="gaming"
+                variant={current.variant}
+                pose="float"
+                sizes="(min-width: 1024px) 50vw, 92vw"
+                className="!absolute left-1/2 top-1/2 w-[86%] -translate-x-1/2 -translate-y-1/2"
+              />
               <AnimatePresence mode="popLayout">
+                {current.variant === 'none' && (
                 <motion.div
                   key={current.id}
                   initial={{ opacity: 0, x: 80, rotate: 2 }}
@@ -151,6 +162,7 @@ export function Gaming() {
                     imgClassName="scale-110 drop-shadow-[0_30px_60px_rgba(255,122,182,0.25)]"
                   />
                 </motion.div>
+                )}
               </AnimatePresence>
             </motion.div>
             </MaskReveal>

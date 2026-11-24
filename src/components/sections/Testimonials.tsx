@@ -54,7 +54,11 @@ export function Testimonials() {
 
       <div className="mt-14 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
         <div
-          className="relative flex min-h-[460px] flex-col overflow-hidden rounded-[32px] border border-white/[0.07] bg-gradient-to-br from-graphite to-coal p-7 sm:p-10"
+          className="relative flex min-h-[460px] flex-col overflow-hidden rounded-[32px] border border-transparent p-7 sm:p-10"
+          style={{
+            background:
+              'radial-gradient(80% 70% at 100% 0%, rgba(255,180,162,0.22), transparent 60%), radial-gradient(70% 60% at 0% 100%, rgba(185,166,255,0.25), transparent 60%), linear-gradient(160deg, #1d1935, #120f22) padding-box, linear-gradient(140deg, #b9a6ff, rgba(255,255,255,0.05) 45%, #ffb4a2) border-box',
+          }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >

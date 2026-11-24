@@ -4,8 +4,8 @@ import { useRef, useState } from 'react'
 import { scrollToId } from '../../lib/hooks'
 import { useStore } from '../../lib/store'
 import { EASE, MagneticButton, SplitHeading } from '../ui/primitives'
-import { MaskReveal, Scramble } from '../ui/motion'
-import { LazyImage } from '../ui/LazyImage'
+import { Scramble } from '../ui/motion'
+import { CompanionSlot } from '../companion/CompanionSlot'
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
@@ -126,9 +126,7 @@ export function FinalCta() {
         </div>
         <motion.div style={{ y, rotate }} className="relative">
           <div aria-hidden className="absolute inset-[20%] rounded-full bg-ember/30 blur-[90px]" />
-          <MaskReveal>
-            <LazyImage src="/renders/noctis.webp" alt="Noctis Studio 16 Graphite Edition" ratio="4 / 3" sizes="(min-width: 1024px) 45vw, 92vw" className="w-full" imgClassName="scale-110" />
-          </MaskReveal>
+          <CompanionSlot id="final" variant="noctis" pose="closing" sizes="(min-width: 1024px) 45vw, 92vw" className="w-full" />
         </motion.div>
       </div>
     </section>

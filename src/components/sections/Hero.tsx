@@ -1,15 +1,23 @@
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { AnimatePresence, motion, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { ArrowDown, ArrowRight, Plus, Sparkles } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { formatPrice, products } from '../../data/catalog'
-import { gpuTier, scrollToId, useDeferred3D, useMediaQuery } from '../../lib/hooks'
+import { scrollToId } from '../../lib/hooks'
 import { useStore } from '../../lib/store'
 import { EASE, MagneticButton, Stars } from '../ui/primitives'
 import { LazyImage } from '../ui/LazyImage'
-import dynamic from 'next/dynamic'
+import { CompanionSlot } from '../companion/CompanionSlot'
+import type { VariantKey } from '../three/variants'
 
-const HeroScene = dynamic(() => import('../three/HeroScene'), { ssr: false })
-const flagship = products[0]
+// The hero laptop cycles through these designs; the travelling 3D companion morphs between them
+const CYCLE: { variant: VariantKey; id: string; tag: string }[] = [
+  { variant: 'noctis', id: 'noctis-studio-16', tag: 'Graphite Edition' },
+  { variant: 'silver', id: 'macbook-pro-16', tag: 'Studio silver' },
+  { variant: 'eclipse', id: 'rog-zephyrus-g16', tag: 'Dot-matrix gaming' },
+  { variant: 'copper', id: 'spectre-x360-14', tag: 'Copper-cut convertible' },
+  { variant: 'sage', id: 'surface-laptop-7', tag: 'Everyday sage' },
+]
+const CYCLE_MS = 4200
 
 /** One headline word rising out of its own mask; pure CSS so it plays before hydration. */
 function Word({ children, delay, className = '' }: { children: React.ReactNode; delay: number; className?: string }) {
@@ -27,12 +35,19 @@ const rise = (delay: number) => ({ className: 'rise-in', style: { animationDelay
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const reduce = !!useReducedMotion()
-  const compact = useMediaQuery('(max-width: 1023px)')
   const inView = useInView(ref, { margin: '0px 0px -10% 0px' })
-  const [sceneReady, setSceneReady] = useState(false)
+  const [ci, setCi] = useState(0)
+  const [paused, setPaused] = useState(false)
   const { addToCart } = useStore()
-  // Still image paints instantly; live 3D loads after the page is idle, on capable devices only
-  const load3D = useDeferred3D()
+  const current = CYCLE[ci]
+  const featured = products.find((p) => p.id === current.id)!
+
+  // Auto-advance the hero design while the hero is on screen
+  useEffect(() => {
+    if (reduce || paused || !inView) return
+    const id = setTimeout(() => setCi((i) => (i + 1) % CYCLE.length), CYCLE_MS)
+    return () => clearTimeout(id)
+  }, [ci, reduce, paused, inView])
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const textY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -140])
@@ -72,35 +87,17 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* -------- Product: still render first (LCP-friendly), live 3D crossfades in later -------- */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/renders/noctis-800.webp"
-        srcSet="/renders/noctis-800.webp 800w, /renders/noctis.webp 1400w"
-        sizes="(min-width: 1024px) 60vw, 92vw"
-        alt="Noctis Studio 16 Graphite Edition"
-        width={1400}
-        height={1050}
-        fetchPriority="high"
-        className={`pointer-events-none absolute right-[1%] top-1/2 w-[58%] -translate-y-1/2 object-contain transition-opacity duration-1000 max-lg:bottom-[4%] max-lg:left-[4%] max-lg:top-auto max-lg:w-[92%] max-lg:translate-y-0 ${
+      {/* -------- Product slot: the travelling 3D laptop lands here (still render until it arrives / on phones) -------- */}
+      <CompanionSlot
+        id="hero"
+        variant={current.variant}
+        pose="hero"
+        priority
+        sizes="(min-width: 1024px) 58vw, 92vw"
+        className={`pointer-events-none absolute right-[1%] top-1/2 w-[58%] -translate-y-1/2 max-lg:bottom-[5%] max-lg:left-[4%] max-lg:top-auto max-lg:w-[92%] max-lg:translate-y-0 ${
           reduce ? '' : 'lg:animate-[float-y_7s_ease-in-out_infinite]'
         }`}
-        style={{ opacity: sceneReady ? 0 : 1 }}
       />
-      {load3D && (
-        <motion.div className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: sceneReady ? 1 : 0 }} transition={{ duration: 1.1, ease: EASE }}>
-          <HeroScene
-            progress={scrollYProgress}
-            active={inView}
-            started={sceneReady}
-            instant
-            tier={gpuTier()}
-            reduced={reduce}
-            compact={compact}
-            onReady={() => setSceneReady(true)}
-          />
-        </motion.div>
-      )}
 
       {/* -------- Copy -------- */}
       <motion.div
@@ -172,26 +169,68 @@ export function Hero() {
 
         <div
           {...rise(0.8)}
-          className="rise-in glass pointer-events-auto ml-auto hidden items-center gap-4 rounded-2xl p-2.5 pr-3 lg:flex"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          className="rise-in glass pointer-events-auto ml-auto hidden w-[400px] flex-col gap-3 rounded-2xl p-3 lg:flex"
         >
-          <div className="relative h-14 w-[74px] overflow-hidden rounded-xl bg-white/[0.04]">
-            <LazyImage src={flagship.image} alt="" sizes="80px" className="h-full w-full" imgClassName="scale-[1.35]" />
+          <div className="flex items-center gap-4">
+            <div className="relative h-14 w-[74px] shrink-0 overflow-hidden rounded-xl" style={{ background: `radial-gradient(circle at 50% 40%, ${featured.glow}55, transparent 70%)` }}>
+              <LazyImage key={featured.id} src={featured.image} alt="" sizes="80px" className="h-full w-full" imgClassName="scale-[1.35]" />
+            </div>
+            <div className="relative h-[52px] min-w-0 flex-1 overflow-hidden">
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.div
+                  key={featured.id}
+                  initial={{ y: 26, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -26, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: EASE }}
+                >
+                  <p className="font-mono text-[10px] uppercase tracking-wider text-mist">Now showing · {current.tag}</p>
+                  <p className="truncate text-sm font-medium">
+                    {featured.brand} {featured.name}
+                  </p>
+                  <p className="font-mono text-xs">
+                    {formatPrice(featured.price)} {featured.compareAt && <span className="text-mist line-through">{formatPrice(featured.compareAt)}</span>}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+            <button
+              onClick={() => addToCart(featured)}
+              aria-label={`Add ${featured.name} to bag`}
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-bone text-ink transition-transform hover:scale-110 hover:bg-white"
+              data-cursor="hover"
+            >
+              <Plus className="h-4 w-4" />
+            </button>
           </div>
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-wider text-mist">Featured · {flagship.specs[2].value}</p>
-            <p className="text-sm font-medium">Noctis {flagship.name}</p>
-            <p className="font-mono text-xs">
-              {formatPrice(flagship.price)} <span className="text-mist line-through">{formatPrice(flagship.compareAt!)}</span>
-            </p>
+          {/* Design picker doubles as the cycle progress */}
+          <div className="flex gap-1.5" role="tablist" aria-label="Laptop designs">
+            {CYCLE.map((c, i) => (
+              <button
+                key={c.variant}
+                role="tab"
+                aria-selected={i === ci}
+                aria-label={c.tag}
+                onClick={() => setCi(i)}
+                className="group h-5 flex-1"
+                data-cursor="hover"
+              >
+                <span className="block h-[3px] overflow-hidden rounded-full bg-white/10 transition-colors group-hover:bg-white/20">
+                  {i === ci && (
+                    <motion.span
+                      key={`${ci}-${paused}`}
+                      className="block h-full rounded-full bg-gradient-to-r from-ember to-peach"
+                      initial={{ width: paused || reduce ? '100%' : '0%' }}
+                      animate={{ width: '100%' }}
+                      transition={{ duration: paused || reduce ? 0 : CYCLE_MS / 1000, ease: 'linear' }}
+                    />
+                  )}
+                </span>
+              </button>
+            ))}
           </div>
-          <button
-            onClick={() => addToCart(flagship)}
-            aria-label={`Add ${flagship.name} to bag`}
-            className="ml-2 grid h-10 w-10 place-items-center rounded-full bg-bone text-ink transition-transform hover:scale-110 hover:bg-white"
-            data-cursor="hover"
-          >
-            <Plus className="h-4 w-4" />
-          </button>
         </div>
       </div>
 

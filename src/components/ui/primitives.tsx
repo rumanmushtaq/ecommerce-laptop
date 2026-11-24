@@ -215,6 +215,8 @@ export function Tilt({ children, className = '', max = 8 }: { children: ReactNod
       style={reduce ? undefined : { rotateX: rx, rotateY: ry, transformPerspective: 1100 }}
       onPointerMove={(e) => {
         if (e.pointerType !== 'mouse') return
+        // Hold the tilt while aiming at a control, so buttons don't drift out from under the cursor
+        if ((e.target as HTMLElement).closest('button, a, input')) return
         const r = e.currentTarget.getBoundingClientRect()
         px.set((e.clientX - r.left) / r.width)
         py.set((e.clientY - r.top) / r.height)

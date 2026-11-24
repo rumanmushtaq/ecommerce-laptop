@@ -90,27 +90,37 @@ function ProductCard({ product: p, feature }: { product: Product; feature: boole
         id={`product-${p.id}`}
         whileHover={{ y: -6 }}
         transition={{ duration: 0.5, ease: EASE }}
-        className={`group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-white/[0.07] bg-gradient-to-b from-graphite to-coal p-5 transition-[border-color,box-shadow] duration-500 hover:border-white/15 hover:shadow-[0_40px_90px_-40px_rgba(0,0,0,0.9)] sm:p-6 ${
-          feature ? 'md:grid md:grid-cols-[1.25fr_1fr] md:gap-8' : ''
+        className={`group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-transparent p-3 transition-shadow duration-500 sm:p-3.5 ${
+          feature ? 'md:grid md:grid-cols-[1.25fr_1fr] md:gap-6' : ''
         }`}
+        style={{
+          background: `linear-gradient(180deg, #1b1832, #110f1f) padding-box, linear-gradient(150deg, ${p.glow}, rgba(255,255,255,0.06) 42%, ${p.glow}66) border-box`,
+          boxShadow: `0 30px 80px -50px ${p.glow}`,
+        }}
       >
         {/* Product shot */}
-        <div className={`relative ${feature ? 'md:row-span-2 md:min-h-[420px]' : ''}`}>
+        <div
+          className={`relative overflow-hidden rounded-[22px] p-3.5 ${feature ? 'md:row-span-2 md:min-h-[440px]' : ''}`}
+          style={{
+            background: `radial-gradient(120% 80% at 50% -5%, ${p.glow}f2 0%, ${p.glow}80 34%, transparent 70%), linear-gradient(175deg, ${p.glow}55, #1b1832 82%)`,
+          }}
+        >
+          {/* studio texture: dot grid + soft top highlight + hover light sweep */}
+          <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.22] [background-image:radial-gradient(rgba(255,255,255,0.55)_1px,transparent_1px)] [background-size:14px_14px] [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
+          <span aria-hidden className="pointer-events-none absolute -inset-x-10 -top-1/2 h-full rounded-full bg-white/20 blur-3xl transition-opacity duration-700 group-hover:opacity-60 opacity-30" />
+          <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -translate-x-[130%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-[1100ms] ease-out group-hover:translate-x-[420%]" />
           <div className="relative z-30 flex items-start justify-between">
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist">{p.brand}</span>
-              {p.badge && <span className="rounded-full border border-ember/40 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-ember">{p.badge}</span>}
+              <span className="rounded-full bg-black/25 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">{p.brand}</span>
+              {p.badge && <span className="rounded-full bg-white px-2 py-1 font-mono text-[9px] font-medium uppercase tracking-wider text-ink">{p.badge}</span>}
             </div>
             <span className={feature ? 'md:hidden' : ''}>
               <WishButton product={p} />
             </span>
           </div>
           <div className={`relative ${feature ? 'aspect-[4/3] md:absolute md:inset-x-0 md:bottom-0 md:top-12 md:aspect-auto' : 'aspect-[4/3]'}`}>
-            <div
-              aria-hidden
-              className="absolute inset-[18%] rounded-full opacity-30 blur-[60px] transition-opacity duration-700 group-hover:opacity-60"
-              style={{ background: p.glow }}
-            />
+            {/* floor shadow anchoring the product on its stage */}
+            <div aria-hidden className="absolute inset-x-[16%] bottom-[9%] h-[12%] rounded-[50%] bg-black/45 blur-xl" />
             <button
               onClick={() => openQuick(p.id)}
               aria-label={`Open ${p.brand} ${p.name} in 3D quick view`}
@@ -134,7 +144,7 @@ function ProductCard({ product: p, feature }: { product: Product; feature: boole
         </div>
 
         {/* Details */}
-        <div className="relative mt-2 flex flex-1 flex-col">
+        <div className={`relative flex flex-1 flex-col px-2.5 pb-2 ${feature ? 'pt-4 md:pt-2' : 'pt-4'}`}>
           {feature && (
             <div className="relative z-30 mb-4 hidden items-center justify-between md:flex">
               <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ember">Editor’s pick</span>

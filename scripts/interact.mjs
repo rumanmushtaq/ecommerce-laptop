@@ -19,10 +19,10 @@ log('bag badge:', await page.getByRole('button', { name: /^Bag, / }).getAttribut
 
 // Filter tabs
 await page.locator('#products').scrollIntoViewIfNeeded()
-await page.getByRole('tab', { name: 'Gaming' }).click()
+await page.getByRole('tab', { name: 'Gaming', exact: true }).click()
 await wait(1200)
 log('gaming filter cards:', await page.locator('#products article').count())
-await page.getByRole('tab', { name: 'All' }).click()
+await page.getByRole('tab', { name: 'All', exact: true }).click()
 await wait(1200)
 log('all cards:', await page.locator('#products article').count())
 
@@ -79,7 +79,7 @@ await page.getByRole('button', { name: 'Business collection' }).hover()
 await wait(900)
 await page.getByRole('button', { name: 'Business collection' }).click()
 await wait(1800)
-log('after collection click, selected tab:', await page.locator('[role=tab][aria-selected=true]').innerText())
+log('after collection click, selected tab:', await page.locator('#products [role=tab][aria-selected=true]').innerText())
 
 // Mega menu
 await page.evaluate(() => window.scrollTo(0, 0))

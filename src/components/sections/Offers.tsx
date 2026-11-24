@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 import { formatPrice, products } from '../../data/catalog'
 import { useStore } from '../../lib/store'
 import { EASE, Reveal, SectionIntro, Tilt } from '../ui/primitives'
-import { MaskReveal } from '../ui/motion'
 import { useShopCategory } from '../layout/Navbar'
 import { AddButton } from './FeaturedProducts'
 import { LazyImage } from '../ui/LazyImage'
+import { CompanionSlot } from '../companion/CompanionSlot'
 
 const deal = products.find((p) => p.id === 'rog-zephyrus-g16')!
 
@@ -91,7 +91,13 @@ function TradeIn() {
   const credit = Math.round((ages[age].base * conditions[cond].k + 120) / 10) * 10
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden rounded-[28px] border border-white/[0.07] bg-gradient-to-br from-graphite to-coal p-6 sm:p-7">
+    <div
+      className="relative flex h-full flex-col overflow-hidden rounded-[28px] border border-transparent p-6 sm:p-7"
+      style={{
+        background:
+          'radial-gradient(90% 70% at 100% 0%, rgba(158,230,207,0.28), transparent 65%), linear-gradient(160deg, #142624, #11101f) padding-box, linear-gradient(150deg, #9ee6cf, rgba(255,255,255,0.05) 50%, #9ee6cf55) border-box',
+      }}
+    >
       <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ice">
         <Repeat2 className="h-4 w-4" /> Trade-in estimator
       </div>
@@ -166,16 +172,7 @@ export function Offers() {
                     <span className="font-mono text-[9px] uppercase tracking-wider">this week</span>
                   </span>
                 </div>
-                <MaskReveal>
-                <LazyImage
-                  src={deal.image}
-                  alt={`${deal.brand} ${deal.name}`}
-                  ratio="4 / 3"
-                  sizes="(min-width: 1024px) 640px, 92vw"
-                  className="mx-auto w-full max-w-[640px]"
-                  imgClassName="scale-110 transition-transform duration-1000 ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.16]"
-                />
-                </MaskReveal>
+                <CompanionSlot id="offers" variant="eclipse" pose="float" sizes="(min-width: 1024px) 640px, 92vw" className="mx-auto w-full max-w-[640px]" />
               </div>
 
               <div className="flex flex-wrap items-end justify-between gap-5">

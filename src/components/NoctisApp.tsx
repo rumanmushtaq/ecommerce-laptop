@@ -20,6 +20,8 @@ import { WhyUs } from './sections/WhyUs'
 import { AuroraBackdrop } from './ui/motion'
 import { useSmoothScroll } from '../lib/smoothScroll'
 import { StoreProvider, useStore } from '../lib/store'
+import { Companion } from './companion/Companion'
+import { CompanionProvider } from './companion/context'
 
 function SmoothScroll() {
   const { panel } = useStore()
@@ -31,6 +33,7 @@ export default function NoctisApp() {
   return (
     <MotionConfig reducedMotion="user">
       <StoreProvider>
+        <CompanionProvider>
         <SmoothScroll />
         <AuroraBackdrop />
         <ScrollProgress />
@@ -49,6 +52,7 @@ export default function NoctisApp() {
           <FinalCta />
         </main>
         <Footer />
+        <Companion />
         <SectionRail />
         <MobileShopBar />
         <BagDrawer />
@@ -56,6 +60,7 @@ export default function NoctisApp() {
         <QuickView />
         <MobileMenu />
         <Toasts />
+        </CompanionProvider>
       </StoreProvider>
     </MotionConfig>
   )
