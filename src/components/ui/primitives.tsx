@@ -43,7 +43,8 @@ export function MagneticButton({ variant = 'primary', size = 'md', className = '
   }
 
   const styles = {
-    primary: 'bg-ember text-ink shadow-[0_10px_40px_-10px_rgba(92,225,255,0.7)] hover:bg-ember-soft',
+    primary:
+      'bg-[linear-gradient(110deg,#5ce1ff,#a78bfa_55%,#f472b6)] bg-[length:160%_100%] bg-left text-ink shadow-[0_10px_40px_-10px_rgba(92,225,255,0.8),0_0_0_1px_rgba(255,255,255,0.12)_inset] transition-[background-position,box-shadow] duration-500 hover:bg-right hover:shadow-[0_14px_50px_-8px_rgba(167,139,250,0.9)]',
     ghost: 'glass text-bone hover:bg-white/10',
     light: 'bg-bone text-ink hover:bg-white',
   }[variant]

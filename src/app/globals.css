@@ -176,6 +176,63 @@
 .word-up { display: inline-block; animation: word-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .fade-in { animation: fade-in 1.4s ease-out both; }
 
+/* ---- Aurora ribbons (hero) ---- */
+.aurora-ribbon {
+  position: absolute;
+  left: -25vmax;
+  width: 150vmax;
+  height: 34vmax;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+.aurora-a { top: 8%; background: linear-gradient(90deg, transparent 10%, rgba(92, 225, 255, 0.55), rgba(139, 92, 246, 0.45), transparent 90%); transform: rotate(-14deg); }
+.aurora-b { top: 34%; background: linear-gradient(90deg, transparent 5%, rgba(244, 114, 182, 0.4), rgba(92, 225, 255, 0.35), transparent 85%); transform: rotate(9deg); opacity: 0.38; }
+.aurora-c { top: 58%; background: linear-gradient(90deg, transparent 15%, rgba(167, 139, 250, 0.5), rgba(244, 114, 182, 0.3), transparent 95%); transform: rotate(-6deg); opacity: 0.32; }
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .aurora-a { animation: aurora-a 22s ease-in-out infinite alternate; }
+  .aurora-b { animation: aurora-b 28s ease-in-out infinite alternate; }
+  .aurora-c { animation: aurora-c 34s ease-in-out infinite alternate; }
+}
+@keyframes aurora-a { to { transform: translate(14vw, 6vh) rotate(-4deg) scale(1.15); } }
+@keyframes aurora-b { to { transform: translate(-12vw, -8vh) rotate(18deg) scale(0.9); } }
+@keyframes aurora-c { to { transform: translate(10vw, -10vh) rotate(-16deg) scale(1.2); } }
+
+/* ---- Flowing gradient text ---- */
+.shine-text { background-size: 220% auto; }
+@media (prefers-reduced-motion: no-preference) {
+  .shine-text { animation: shine 6s linear infinite; }
+}
+@keyframes shine { to { background-position: 220% center; } }
+
+/* ---- Holographic foil edge (cards): a spinning conic gradient masked to the border, only while hovered ---- */
+@property --holo-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.holo-edge {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from var(--holo-angle), #5ce1ff, #a78bfa, #f472b6, #ffc98a, #5ce1ff);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  animation: holo-spin 3s linear infinite paused;
+}
+.group:hover > .holo-edge {
+  opacity: 1;
+  animation-play-state: running;
+}
+@keyframes holo-spin { to { --holo-angle: 360deg; } }
+
 @keyframes scan {
   0%, 100% { transform: translateY(-24px); }
   50% { transform: translateY(84px); }

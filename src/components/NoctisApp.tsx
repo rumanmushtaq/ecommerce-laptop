@@ -12,6 +12,7 @@ import { FeaturedProducts } from './sections/FeaturedProducts'
 import { FinalCta } from './sections/FinalCta'
 import { Gaming } from './sections/Gaming'
 import { Hero } from './sections/Hero'
+import { KineticTapes } from './sections/KineticTapes'
 import { Offers } from './sections/Offers'
 import { Showcase } from './sections/Showcase'
 import { Testimonials } from './sections/Testimonials'
@@ -44,6 +45,7 @@ export default function NoctisApp() {
           <TrustStrip />
           <Collections />
           <FeaturedProducts />
+          <KineticTapes />
           <Showcase />
           <Gaming />
           <Offers />

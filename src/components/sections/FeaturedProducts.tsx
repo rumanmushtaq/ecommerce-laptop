@@ -98,6 +98,8 @@ function ProductCard({ product: p, feature }: { product: Product; feature: boole
           boxShadow: `0 30px 80px -50px ${p.glow}`,
         }}
       >
+        {/* holographic foil edge, spins only while hovered */}
+        <span aria-hidden className="holo-edge" />
         {/* Product shot */}
         <div
           className={`relative rounded-[22px] p-3.5 ${feature ? 'md:row-span-2 md:min-h-[460px]' : ''}`}

@@ -76,6 +76,12 @@ export function Hero() {
       {/* -------- Backdrop -------- */}
       <div aria-hidden className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_68%_45%,rgba(92,225,255,0.16),transparent_60%),radial-gradient(ellipse_60%_50%_at_85%_20%,rgba(167,139,250,0.10),transparent_60%),radial-gradient(ellipse_70%_60%_at_10%_90%,rgba(139,92,246,0.08),transparent_60%)]" />
+        {/* Aurora: three soft light ribbons drifting behind the product (animated on desktop only) */}
+        <div className="aurora absolute inset-0 overflow-hidden">
+          <span className="aurora-ribbon aurora-a" />
+          <span className="aurora-ribbon aurora-b" />
+          <span className="aurora-ribbon aurora-c" />
+        </div>
         {/* perspective floor grid */}
         <div className="absolute inset-x-0 bottom-0 h-[45%] [perspective:600px]">
           <div className="absolute inset-0 origin-bottom [transform:rotateX(62deg)] opacity-40 [mask-image:linear-gradient(to_top,black,transparent_85%)] overflow-hidden">
@@ -134,7 +140,7 @@ export function Hero() {
             <Word delay={0.12}>sculpted</Word> <Word delay={0.18}>in</Word>{' '}
             <Word
               delay={0.24}
-              className="bg-gradient-to-r from-ember-soft via-ember to-peach bg-clip-text pr-2 font-serif font-normal italic tracking-[-0.02em] text-transparent"
+              className="shine-text bg-gradient-to-r from-ember-soft via-peach to-ember bg-clip-text pr-2 font-serif font-normal italic tracking-[-0.02em] text-transparent"
             >
               light.
             </Word>

@@ -33,6 +33,7 @@ function Tile({
         background: `radial-gradient(90% 70% at 100% 0%, ${tint}38, transparent 65%), linear-gradient(165deg, #10172d, #0a0e1c) padding-box, linear-gradient(150deg, ${tint}, rgba(255,255,255,0.05) 45%, ${tint}55) border-box`,
       }}
     >
+      <span aria-hidden className="holo-edge" />
       <div className="relative min-h-[150px] flex-1">{children}</div>
       <div className="relative mt-5 flex items-start gap-3">
         <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl" style={{ background: `${tint}22`, color: tint }}>

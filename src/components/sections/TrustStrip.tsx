@@ -60,7 +60,7 @@ export function TrustStrip() {
             className={`group relative px-2 py-6 sm:px-6 lg:py-2 ${i % 2 ? 'border-l' : ''} ${i > 1 ? 'max-lg:border-t' : ''} ${i === 2 ? 'lg:border-l' : ''} hairline`}
           >
             <s.icon className="mb-4 h-5 w-5 text-ember transition-transform duration-500 group-hover:-translate-y-1 group-hover:rotate-[-8deg]" strokeWidth={1.5} />
-            <p className="text-[clamp(2rem,4vw,3.25rem)] font-medium leading-none tracking-[-0.04em]">
+            <p className="bg-gradient-to-br from-bone via-ember-soft to-ice bg-clip-text text-[clamp(2rem,4vw,3.25rem)] font-medium leading-none tracking-[-0.04em] text-transparent">
               <CountUp to={s.value} decimals={s.decimals} suffix={s.suffix} />
             </p>
             <p className="mt-3 text-sm text-bone">{s.label}</p>
