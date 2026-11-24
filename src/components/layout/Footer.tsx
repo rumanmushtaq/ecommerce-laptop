@@ -135,7 +135,7 @@ export function Footer() {
         </div>
       </div>
       <VelocitySkew max={6}>
-        <p aria-hidden className="pointer-events-none -mb-[4.5vw] select-none bg-gradient-to-b from-ember/[0.16] to-transparent bg-clip-text text-center text-[23vw] font-semibold leading-none tracking-[-0.07em] text-transparent">
+        <p aria-hidden className="spot-text -mb-[4.5vw] select-none text-center text-[23vw] font-semibold leading-none tracking-[-0.07em]">
           NOCTIS
         </p>
       </VelocitySkew>

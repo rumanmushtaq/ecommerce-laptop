@@ -271,3 +271,46 @@
     animation-iteration-count: 1 !important;
   }
 }
+
+/* ---- Chrome headline: brushed-metal fill with an occasional warm sheen passing through ---- */
+.chrome-text {
+  background-image: linear-gradient(105deg, transparent 42%, rgba(255, 200, 160, 0.95) 50%, transparent 58%),
+    linear-gradient(180deg, #ffffff 22%, #d2d2d7 62%, #8f8f97);
+  background-size: 300% 100%, 100% 100%;
+  background-position: 100% 0, 0 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chrome-text { animation: sheen 9s 1.2s ease-in-out infinite; }
+}
+@keyframes sheen {
+  0% { background-position: 100% 0, 0 0; }
+  16%, 100% { background-position: 0% 0, 0 0; }
+}
+
+/* ---- Cursor spotlight: a soft orange light follows the pointer across a card (mouse only) ---- */
+@media (hover: hover) and (pointer: fine) {
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(440px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 122, 26, 0.13), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+  .spotlight:hover::before { opacity: 1; }
+}
+
+/* ---- Footer wordmark lit from inside by the pointer ---- */
+.spot-text {
+  background-image: radial-gradient(24vw circle at var(--mx, 50%) var(--my, 55%), rgba(255, 122, 26, 0.9), rgba(255, 122, 26, 0) 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.02) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

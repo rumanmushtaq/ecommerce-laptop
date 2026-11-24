@@ -28,7 +28,7 @@ function Tile({
       viewport={{ once: true, margin: '-8% 0px' }}
       transition={{ duration: 0.8, delay, ease: EASE }}
       whileHover={{ y: -4 }}
-      className={`group relative flex flex-col overflow-hidden rounded-[28px] border border-transparent p-6 ${className}`}
+      className={`spotlight group relative flex flex-col overflow-hidden rounded-[28px] border border-transparent p-6 ${className}`}
       style={{
         background: `radial-gradient(90% 70% at 100% 0%, ${tint}38, transparent 65%), linear-gradient(165deg, #18181a, #0d0d0e) padding-box, linear-gradient(150deg, ${tint}, rgba(255,255,255,0.05) 45%, ${tint}55) border-box`,
       }}

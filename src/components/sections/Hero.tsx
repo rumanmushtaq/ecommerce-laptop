@@ -82,20 +82,12 @@ export function Hero() {
           <span className="aurora-ribbon aurora-b" />
           <span className="aurora-ribbon aurora-c" />
         </div>
-        {/* perspective floor grid */}
-        <div className="absolute inset-x-0 bottom-0 h-[45%] [perspective:600px]">
-          <div className="absolute inset-0 origin-bottom [transform:rotateX(62deg)] opacity-40 [mask-image:linear-gradient(to_top,black,transparent_85%)] overflow-hidden">
-            <div
-              className="grid-anim absolute inset-x-0 bottom-0 [--grid-speed:3s]"
-              style={{
-                backgroundImage:
-                  'linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)',
-                backgroundSize: '64px 64px',
-                top: '-64px',
-              }}
-            />
-          </div>
-        </div>
+        {/* warm light pooling under the floating product */}
+        <div className="absolute right-[3%] top-[68%] h-[24%] w-[56%] rounded-[50%] bg-[radial-gradient(closest-side,rgba(255,122,26,0.20),transparent)] max-lg:hidden" />
+        {/* editorial spine along the left edge */}
+        <p className="absolute left-5 top-1/2 hidden -translate-y-1/2 rotate-180 font-mono text-[10px] uppercase tracking-[0.42em] text-mist/60 [writing-mode:vertical-rl] 2xl:block">
+          Noctis — Curated machines — Est. 2014
+        </p>
         {/* rotating light cone behind the product */}
         <div className="absolute left-[68%] top-[46%] h-[120vmax] w-[120vmax] -translate-x-1/2 -translate-y-1/2 opacity-60 max-lg:left-1/2 max-lg:top-[72%]">
           <div className="h-full w-full animate-[spin-slow_40s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(255,122,26,0.10)_40deg,transparent_80deg,transparent_180deg,rgba(201,201,207,0.08)_220deg,transparent_260deg)] [mask-image:radial-gradient(circle,black_10%,transparent_55%)]" />
@@ -135,9 +127,10 @@ export function Hero() {
           </div>
 
           <h1 className="text-[clamp(3rem,7.6vw,7.4rem)] font-medium leading-[0.92] tracking-[-0.05em]">
-            <Word delay={0.05}>Power,</Word>
+            <Word delay={0.05}><span className="chrome-text" style={{ animationDelay: '1.1s' }}>Power,</span></Word>
             <br />
-            <Word delay={0.12}>sculpted</Word> <Word delay={0.18}>in</Word>{' '}
+            <Word delay={0.12}><span className="chrome-text" style={{ animationDelay: '1.25s' }}>sculpted</span></Word>{' '}
+            <Word delay={0.18}><span className="chrome-text" style={{ animationDelay: '1.4s' }}>in</span></Word>{' '}
             <Word
               delay={0.24}
               className="shine-text bg-gradient-to-r from-ember-soft via-peach to-ember bg-clip-text pr-2 font-serif font-normal italic tracking-[-0.02em] text-transparent"

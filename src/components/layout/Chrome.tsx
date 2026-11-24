@@ -54,3 +54,31 @@ export function Cursor() {
     </>
   )
 }
+
+/** Feeds the pointer position into `.spotlight` cards and `.spot-text` as --mx / --my (one write per frame). */
+export function Spotlights() {
+  const fine = useFinePointer()
+  useEffect(() => {
+    if (!fine) return
+    let frame = 0
+    let last: PointerEvent | null = null
+    const apply = () => {
+      frame = 0
+      const el = (last?.target as Element | null)?.closest?.<HTMLElement>('.spotlight, .spot-text')
+      if (!el || !last) return
+      const r = el.getBoundingClientRect()
+      el.style.setProperty('--mx', `${last.clientX - r.left}px`)
+      el.style.setProperty('--my', `${last.clientY - r.top}px`)
+    }
+    const onMove = (e: PointerEvent) => {
+      last = e
+      if (!frame) frame = requestAnimationFrame(apply)
+    }
+    window.addEventListener('pointermove', onMove, { passive: true })
+    return () => {
+      window.removeEventListener('pointermove', onMove)
+      cancelAnimationFrame(frame)
+    }
+  }, [fine])
+  return null
+}

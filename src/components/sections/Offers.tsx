@@ -151,7 +151,7 @@ export function Offers() {
         {/* Hero deal */}
         <Reveal className="h-full">
           <Tilt max={3} className="h-full rounded-[32px]">
-            <div className="group relative flex h-full flex-col overflow-hidden rounded-[32px] border border-white/[0.08] bg-[radial-gradient(80%_70%_at_70%_40%,rgba(161,161,170,0.25),transparent_70%),linear-gradient(160deg,#18181a,#0f0f10)] p-6 sm:p-9">
+            <div className="spotlight group relative flex h-full flex-col overflow-hidden rounded-[32px] border border-white/[0.08] bg-[radial-gradient(80%_70%_at_70%_40%,rgba(161,161,170,0.25),transparent_70%),linear-gradient(160deg,#18181a,#0f0f10)] p-6 sm:p-9">
               <div className="flex flex-wrap items-start justify-between gap-6">
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ember">Deal of the week</p>
@@ -208,7 +208,7 @@ export function Offers() {
             <button
               onClick={() => shop('creative')}
               data-cursor="hover"
-              className="group relative flex h-full min-h-[280px] w-full flex-col overflow-hidden rounded-[28px] border border-white/[0.07] bg-gradient-to-br from-[#1f1712] to-coal p-6 text-left sm:p-7"
+              className="spotlight group relative flex h-full min-h-[280px] w-full flex-col overflow-hidden rounded-[28px] border border-white/[0.07] bg-gradient-to-br from-[#1f1712] to-coal p-6 text-left sm:p-7"
             >
               <LazyImage
                 src="/renders/silver-side.webp"

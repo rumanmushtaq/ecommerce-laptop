@@ -90,7 +90,7 @@ function ProductCard({ product: p, feature }: { product: Product; feature: boole
         id={`product-${p.id}`}
         whileHover={{ y: -6 }}
         transition={{ duration: 0.5, ease: EASE }}
-        className={`group relative flex h-full flex-col rounded-[28px] border border-transparent p-3 transition-shadow duration-500 sm:p-3.5 ${
+        className={`spotlight group relative flex h-full flex-col rounded-[28px] border border-transparent p-3 transition-shadow duration-500 sm:p-3.5 ${
           feature ? 'md:grid md:grid-cols-[1.25fr_1fr] md:gap-6' : ''
         }`}
         style={{
