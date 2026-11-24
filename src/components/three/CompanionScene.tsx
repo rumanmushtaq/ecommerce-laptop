@@ -13,6 +13,7 @@ interface Slot {
   cx: number
   cy: number
   w: number
+  h: number
   variant: VariantKey
   /** Optional chassis colour override (hero finish configurator) */
   body?: string
@@ -39,7 +40,7 @@ function readSlots(): Slot[] {
     if (!v || v === 'none') return
     const r = el.getBoundingClientRect()
     if (r.width < 2) return // hidden at this breakpoint
-    out.push({ el, cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: r.width, variant: v as VariantKey, body: el.dataset.body || undefined, pose: (el.dataset.pose ?? 'float') as CompanionPose })
+    out.push({ el, cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: r.width, h: r.height, variant: v as VariantKey, body: el.dataset.body || undefined, pose: (el.dataset.pose ?? 'float') as CompanionPose })
   })
   return out.sort((a, b) => a.cy - b.cy)
 }
@@ -109,7 +110,20 @@ function Traveller({ reduced }: { reduced: boolean }) {
     let t = 0
     let travel = 0
     if (prev && next) {
-      t = clamp01((mid - prev.cy) / (next.cy - prev.cy))
+      // Stay docked while a slot is still fully on screen, so the laptop sits still inside its card
+      // as you read it; only once the slot starts leaving does it set off for the next one.
+      const gap = next.cy - prev.cy
+      let holdA = Math.max(0, (vh - prev.h) / 2) * 0.85
+      let holdB = Math.max(0, (vh - next.h) / 2) * 0.85
+      // Always keep at least 60% of a screen for the trip itself, so it never whips across
+      const room = gap - holdA - holdB
+      const minTrip = Math.min(gap, vh * 0.6)
+      if (room < minTrip) {
+        const shrink = Math.max(0, gap - minTrip) / Math.max(1, holdA + holdB)
+        holdA *= shrink
+        holdB *= shrink
+      }
+      t = clamp01((mid - prev.cy - holdA) / Math.max(1, gap - holdA - holdB))
       // Long gaps (e.g. the product grid) send it gliding small along the right edge so it never blocks
       // content: it tucks in within the first ~12% of the gap and only leaves the edge near the next slot
       const plateau = smooth(Math.min(clamp01(t / 0.12), clamp01((1 - t) / 0.12)))
