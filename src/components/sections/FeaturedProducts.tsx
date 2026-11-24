@@ -90,26 +90,28 @@ function ProductCard({ product: p, feature }: { product: Product; feature: boole
         id={`product-${p.id}`}
         whileHover={{ y: -6 }}
         transition={{ duration: 0.5, ease: EASE }}
-        className={`group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-transparent p-3 transition-shadow duration-500 sm:p-3.5 ${
+        className={`group relative flex h-full flex-col rounded-[28px] border border-transparent p-3 transition-shadow duration-500 sm:p-3.5 ${
           feature ? 'md:grid md:grid-cols-[1.25fr_1fr] md:gap-6' : ''
         }`}
         style={{
-          background: `linear-gradient(180deg, #1b1832, #110f1f) padding-box, linear-gradient(150deg, ${p.glow}, rgba(255,255,255,0.06) 42%, ${p.glow}66) border-box`,
+          background: `linear-gradient(180deg, #0f1630, #0a0e1d) padding-box, linear-gradient(150deg, ${p.glow}, rgba(255,255,255,0.06) 42%, ${p.glow}66) border-box`,
           boxShadow: `0 30px 80px -50px ${p.glow}`,
         }}
       >
         {/* Product shot */}
         <div
-          className={`relative overflow-hidden rounded-[22px] p-3.5 ${feature ? 'md:row-span-2 md:min-h-[440px]' : ''}`}
+          className={`relative rounded-[22px] p-3.5 ${feature ? 'md:row-span-2 md:min-h-[460px]' : ''}`}
           style={{
-            background: `radial-gradient(120% 80% at 50% -5%, ${p.glow}f2 0%, ${p.glow}80 34%, transparent 70%), linear-gradient(175deg, ${p.glow}55, #1b1832 82%)`,
+            background: `radial-gradient(120% 80% at 50% -5%, ${p.glow}f2 0%, ${p.glow}80 34%, transparent 70%), linear-gradient(175deg, ${p.glow}55, #0f1630 82%)`,
           }}
         >
-          {/* studio texture: dot grid + soft top highlight + hover light sweep */}
-          <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.22] [background-image:radial-gradient(rgba(255,255,255,0.55)_1px,transparent_1px)] [background-size:14px_14px] [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
-          <span aria-hidden className="pointer-events-none absolute -inset-x-10 -top-1/2 h-full rounded-full bg-white/20 blur-3xl transition-opacity duration-700 group-hover:opacity-60 opacity-30" />
-          <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -translate-x-[130%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-[1100ms] ease-out group-hover:translate-x-[420%]" />
-          <div className="relative z-30 flex items-start justify-between">
+          {/* studio texture (clipped to the stage): dot grid + soft highlight + hover light sweep */}
+          <span aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[22px]">
+            <span className="absolute inset-0 opacity-[0.22] [background-image:radial-gradient(rgba(255,255,255,0.55)_1px,transparent_1px)] [background-size:14px_14px] [mask-image:linear-gradient(to_bottom,black,transparent_70%)]" />
+            <span className="absolute -inset-x-10 -top-1/2 h-full rounded-full bg-white/20 opacity-30 blur-3xl transition-opacity duration-700 group-hover:opacity-60" />
+            <span className="absolute inset-y-0 left-0 w-1/3 -translate-x-[130%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-[1100ms] ease-out group-hover:translate-x-[420%]" />
+          </span>
+          <div className="relative z-40 flex items-start justify-between">
             <div className="flex items-center gap-2">
               <span className="rounded-full bg-black/25 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">{p.brand}</span>
               {p.badge && <span className="rounded-full bg-white px-2 py-1 font-mono text-[9px] font-medium uppercase tracking-wider text-ink">{p.badge}</span>}
@@ -118,9 +120,16 @@ function ProductCard({ product: p, feature }: { product: Product; feature: boole
               <WishButton product={p} />
             </span>
           </div>
-          <div className={`relative ${feature ? 'aspect-[4/3] md:absolute md:inset-x-0 md:bottom-0 md:top-12 md:aspect-auto' : 'aspect-[4/3]'}`}>
-            {/* floor shadow anchoring the product on its stage */}
-            <div aria-hidden className="absolute inset-x-[16%] bottom-[9%] h-[12%] rounded-[50%] bg-black/45 blur-xl" />
+          <div
+            className={`relative z-30 ${
+              feature ? '-mt-24 aspect-[4/3] md:absolute md:inset-x-2 md:bottom-2 md:-top-16 md:mt-0 md:aspect-auto' : '-mt-24 aspect-[4/3] sm:-mt-28'
+            }`}
+          >
+            {/* floor shadow: tightens and fades as the laptop lifts off its stage */}
+            <div
+              aria-hidden
+              className="absolute inset-x-[18%] bottom-[8%] h-[11%] rounded-[50%] bg-black/55 blur-xl transition-all duration-700 ease-out group-hover:inset-x-[26%] group-hover:opacity-60"
+            />
             <button
               onClick={() => openQuick(p.id)}
               aria-label={`Open ${p.brand} ${p.name} in 3D quick view`}
@@ -133,7 +142,7 @@ function ProductCard({ product: p, feature }: { product: Product; feature: boole
                   alt={`${p.brand} ${p.name}`}
                   className="h-full w-full"
                   sizes="(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 92vw"
-                  imgClassName="scale-[1.12] transition-transform duration-[900ms] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.2] group-hover:-translate-y-2"
+                  imgClassName="drop-shadow-[0_22px_28px_rgba(0,0,0,0.45)] transition-transform duration-[900ms] ease-[cubic-bezier(.16,1,.3,1)] group-hover:-translate-y-5 group-hover:scale-[1.07] group-hover:-rotate-1"
                 />
               </motion.div>
               <span className="glass absolute bottom-2 left-1/2 flex -translate-x-1/2 translate-y-2 items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-medium opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 max-md:translate-y-0 max-md:opacity-100">
@@ -221,7 +230,7 @@ export function FeaturedProducts() {
           </div>
         </div>
 
-        <motion.div layout className="mt-8 grid grid-flow-row-dense gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <motion.div layout className="mt-24 grid grid-flow-row-dense gap-x-4 gap-y-28 md:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {list.map((p, i) => {
               const feature = filter === 'all' && FEATURED.has(p.id)

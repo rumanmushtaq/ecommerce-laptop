@@ -39,36 +39,38 @@ export function Collections() {
               animate={{ flexGrow: on ? 4.2 : 1 }}
               transition={{ duration: 0.9, ease: EASE }}
               data-cursor="hover"
-              className="group relative basis-0 cursor-pointer overflow-hidden rounded-[28px] border bg-graphite transition-colors duration-700"
+              className={`group relative basis-0 cursor-pointer rounded-[28px] border bg-graphite transition-colors duration-700 ${on ? 'z-10' : 'z-0'}`}
               style={{ borderColor: on ? `${c.accent}aa` : 'rgba(255,255,255,0.08)', boxShadow: on ? `0 40px 100px -50px ${c.accent}` : 'none' }}
             >
-              <motion.div
-                aria-hidden
-                className="absolute inset-0"
-                animate={{ opacity: on ? 1 : 0.7 }}
-                transition={{ duration: 0.9 }}
-                style={{ background: `radial-gradient(90% 70% at 60% 45%, ${c.accent}66, transparent 72%), linear-gradient(180deg, #1a1828, #100f1b)` }}
-              />
-              <div aria-hidden className="absolute inset-0 opacity-[0.15] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
-
-              <div className="pointer-events-none absolute inset-x-0 top-0 bottom-[34%] grid place-items-center">
+              {/* Panel backdrop is clipped; the product itself is free to break out of the frame */}
+              <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[28px]">
                 <motion.div
-                  className="w-[600px] max-w-none"
-                  animate={{ scale: on ? 1 : 0.62, opacity: on ? 1 : 0.8, y: on ? 30 : -20, rotate: on ? 0 : -10 }}
-                  transition={{ duration: 1, ease: EASE }}
-                >
-                  <LazyImage src={c.image} alt={`${c.title} laptop`} ratio="4 / 3" sizes="600px" className="w-full" imgClassName="drop-shadow-[0_40px_60px_rgba(0,0,0,0.6)]" />
-                </motion.div>
+                  className="absolute inset-0"
+                  animate={{ opacity: on ? 1 : 0.7 }}
+                  transition={{ duration: 0.9 }}
+                  style={{ background: `radial-gradient(90% 70% at 60% 45%, ${c.accent}66, transparent 72%), linear-gradient(180deg, #10162a, #0b0e1a)` }}
+                />
+                <div className="absolute inset-0 opacity-[0.15] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+                {/* accent light pooling at the base of each panel */}
+                <motion.div
+                  className="absolute inset-x-0 bottom-0 h-1/2"
+                  animate={{ opacity: on ? 0.35 : 1 }}
+                  transition={{ duration: 0.9 }}
+                  style={{ background: `linear-gradient(to top, ${c.accent}2e, transparent)` }}
+                />
               </div>
 
-              {/* accent light pooling at the base of each panel */}
-              <motion.div
-                aria-hidden
-                className="absolute inset-x-0 bottom-0 h-1/2"
-                animate={{ opacity: on ? 0.35 : 1 }}
-                transition={{ duration: 0.9 }}
-                style={{ background: `linear-gradient(to top, ${c.accent}2e, transparent)` }}
-              />
+              {/* Sized to the panel: a small whole laptop when collapsed, a big one rising out of the top when open */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 bottom-[34%] grid place-items-center">
+                <motion.div
+                  className="w-[104%] max-w-none"
+                  animate={{ scale: on ? 1 : 0.86, y: on ? -46 : -10, rotate: on ? -2 : -8 }}
+                  whileHover={{ y: on ? -62 : -14 }}
+                  transition={{ duration: 1, ease: EASE }}
+                >
+                  <LazyImage src={c.image} alt={`${c.title} laptop`} ratio="4 / 3" sizes="600px" className="w-full" imgClassName="drop-shadow-[0_40px_50px_rgba(0,0,0,0.65)]" />
+                </motion.div>
+              </div>
 
               {/* collapsed label */}
               <motion.div
@@ -116,20 +118,21 @@ export function Collections() {
       </Reveal>
 
       {/* Mobile / tablet: snap carousel */}
-      <div className="no-scrollbar -mx-4 mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:-mx-[4vw] sm:px-[4vw] lg:hidden">
+      <div className="no-scrollbar -mx-4 mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 pt-16 sm:-mx-[4vw] sm:px-[4vw] lg:hidden">
         {categories.map((c, i) => (
           <button
             key={c.id}
             onClick={() => shop(c.id)}
-            className="relative flex h-[440px] w-[80vw] max-w-[380px] shrink-0 snap-center flex-col justify-end overflow-hidden rounded-[24px] border border-white/[0.07] p-6 text-left"
-            style={{ background: `radial-gradient(90% 60% at 50% 35%, ${c.accent}60, transparent 72%), linear-gradient(180deg,#1a1828,#100f1b)` }}
+            className="relative flex h-[440px] w-[80vw] max-w-[380px] shrink-0 snap-center flex-col justify-end rounded-[24px] border p-6 text-left"
+            style={{ background: `radial-gradient(90% 60% at 50% 35%, ${c.accent}60, transparent 72%), linear-gradient(180deg,#10162a,#0b0e1a)`, borderColor: `${c.accent}55` }}
           >
             <LazyImage
               src={c.image}
               alt={`${c.title} laptop`}
               ratio="4 / 3"
               sizes="90vw"
-              className="absolute left-1/2 top-[38%] w-[120%] max-w-none -translate-x-1/2 -translate-y-1/2"
+              className="absolute left-1/2 top-[24%] w-[106%] max-w-none -translate-x-1/2 -translate-y-1/2"
+              imgClassName="drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]"
             />
             <p className="relative font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: c.accent }}>
               0{i + 1} · {c.kicker}

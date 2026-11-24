@@ -64,7 +64,7 @@ export function Keyboard({ body = '#2a2838' }: { body?: string }) {
         </instancedMesh>
         <instancedMesh ref={accents} args={[undefined, undefined, nAccent]}>
           <boxGeometry />
-          <meshStandardMaterial color="#b9a6ff" roughness={0.5} />
+          <meshStandardMaterial color="#5ce1ff" roughness={0.5} />
         </instancedMesh>
       </group>
       {/* Knob */}
@@ -95,7 +95,7 @@ export function Mouse({ body = '#4a4756' }: { body?: string }) {
       </mesh>
       <mesh position={[0, 0.5, 0.42]} rotation-z={Math.PI / 2}>
         <cylinderGeometry args={[0.07, 0.07, 0.06, 24]} />
-        <meshStandardMaterial color="#b9a6ff" metalness={0.8} roughness={0.25} emissive="#b9a6ff" emissiveIntensity={0.4} />
+        <meshStandardMaterial color="#5ce1ff" metalness={0.8} roughness={0.25} emissive="#5ce1ff" emissiveIntensity={0.4} />
       </mesh>
       {/* Thumb rest */}
       <mesh position={[-0.5, 0.15, 0]} scale={[0.12, 0.12, 0.5]}>
@@ -130,7 +130,7 @@ export function Headphones({ body = '#d9d5e6' }: { body?: string }) {
           </mesh>
           <mesh position={[0, s * 0.121, 0]} rotation-x={(s * -Math.PI) / 2}>
             <ringGeometry args={[0.16, 0.18, 48]} />
-            <meshStandardMaterial color="#b9a6ff" emissive="#b9a6ff" emissiveIntensity={1.4} toneMapped={false} />
+            <meshStandardMaterial color="#5ce1ff" emissive="#5ce1ff" emissiveIntensity={1.4} toneMapped={false} />
           </mesh>
         </group>
       ))}
@@ -139,7 +139,7 @@ export function Headphones({ body = '#d9d5e6' }: { body?: string }) {
 }
 
 /** Pocket SSD in a soft-touch shell. */
-export function Ssd({ body = '#b9a6ff' }: { body?: string }) {
+export function Ssd({ body = '#5ce1ff' }: { body?: string }) {
   return (
     <group>
       <RoundedBox args={[1.25, 0.14, 0.8]} radius={0.06} smoothness={6} position={[0, 0.07, 0]}>
@@ -154,7 +154,7 @@ export function Ssd({ body = '#b9a6ff' }: { body?: string }) {
       </RoundedBox>
       <mesh position={[0.5, 0.07, 0.402]}>
         <circleGeometry args={[0.012, 16]} />
-        <meshStandardMaterial color="#9ee6cf" emissive="#9ee6cf" emissiveIntensity={3} toneMapped={false} />
+        <meshStandardMaterial color="#a78bfa" emissive="#a78bfa" emissiveIntensity={3} toneMapped={false} />
       </mesh>
     </group>
   )
@@ -178,7 +178,7 @@ export function Dock({ body = '#1c1b24' }: { body?: string }) {
       </mesh>
       <mesh position={[0, 0.262, 0.2]} rotation-x={-Math.PI / 2}>
         <planeGeometry args={[1.4, 0.012]} />
-        <meshStandardMaterial color="#b9a6ff" emissive="#b9a6ff" emissiveIntensity={2} toneMapped={false} />
+        <meshStandardMaterial color="#5ce1ff" emissive="#5ce1ff" emissiveIntensity={2} toneMapped={false} />
       </mesh>
     </group>
   )

@@ -8,6 +8,7 @@ import { EASE, MagneticButton, Stars } from '../ui/primitives'
 import { LazyImage } from '../ui/LazyImage'
 import { CompanionSlot } from '../companion/CompanionSlot'
 import type { VariantKey } from '../three/variants'
+import { useCompanion } from '../companion/context'
 
 // The hero laptop cycles through these designs; the travelling 3D companion morphs between them
 const CYCLE: { variant: VariantKey; id: string; tag: string }[] = [
@@ -18,6 +19,16 @@ const CYCLE: { variant: VariantKey; id: string; tag: string }[] = [
   { variant: 'sage', id: 'surface-laptop-7', tag: 'Everyday sage' },
 ]
 const CYCLE_MS = 4200
+
+// Finish configurator: repaints the live 3D chassis (first entry keeps each design's own colour)
+const FINISHES: { name: string; color?: string }[] = [
+  { name: 'Signature' },
+  { name: 'Obsidian', color: '#0d1018' },
+  { name: 'Arctic Silver', color: '#c9d3e0' },
+  { name: 'Glacier Cyan', color: '#3fa9c9' },
+  { name: 'Nebula Violet', color: '#4b3a8f' },
+  { name: 'Rose Quartz', color: '#d98aa8' },
+]
 
 /** One headline word rising out of its own mask; pure CSS so it plays before hydration. */
 function Word({ children, delay, className = '' }: { children: React.ReactNode; delay: number; className?: string }) {
@@ -38,16 +49,20 @@ export function Hero() {
   const inView = useInView(ref, { margin: '0px 0px -10% 0px' })
   const [ci, setCi] = useState(0)
   const [paused, setPaused] = useState(false)
+  const [finish, setFinish] = useState(0)
+  // Once the visitor picks a finish, stop auto-cycling so their choice stays on screen
+  const [locked, setLocked] = useState(false)
+  const { active: live3D } = useCompanion()
   const { addToCart } = useStore()
   const current = CYCLE[ci]
   const featured = products.find((p) => p.id === current.id)!
 
   // Auto-advance the hero design while the hero is on screen
   useEffect(() => {
-    if (reduce || paused || !inView) return
+    if (reduce || paused || locked || !inView) return
     const id = setTimeout(() => setCi((i) => (i + 1) % CYCLE.length), CYCLE_MS)
     return () => clearTimeout(id)
-  }, [ci, reduce, paused, inView])
+  }, [ci, reduce, paused, locked, inView])
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const textY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -140])
@@ -60,7 +75,7 @@ export function Hero() {
     <section id="top" ref={ref} className="relative min-h-[100svh] overflow-hidden" aria-label="Noctis Studio 16">
       {/* -------- Backdrop -------- */}
       <div aria-hidden className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_68%_45%,rgba(185,166,255,0.16),transparent_60%),radial-gradient(ellipse_60%_50%_at_85%_20%,rgba(158,230,207,0.10),transparent_60%),radial-gradient(ellipse_70%_60%_at_10%_90%,rgba(143,123,255,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_68%_45%,rgba(92,225,255,0.16),transparent_60%),radial-gradient(ellipse_60%_50%_at_85%_20%,rgba(167,139,250,0.10),transparent_60%),radial-gradient(ellipse_70%_60%_at_10%_90%,rgba(139,92,246,0.08),transparent_60%)]" />
         {/* perspective floor grid */}
         <div className="absolute inset-x-0 bottom-0 h-[45%] [perspective:600px]">
           <div className="absolute inset-0 origin-bottom [transform:rotateX(62deg)] opacity-40 [mask-image:linear-gradient(to_top,black,transparent_85%)] overflow-hidden">
@@ -77,7 +92,7 @@ export function Hero() {
         </div>
         {/* rotating light cone behind the product */}
         <div className="absolute left-[68%] top-[46%] h-[120vmax] w-[120vmax] -translate-x-1/2 -translate-y-1/2 opacity-60 max-lg:left-1/2 max-lg:top-[72%]">
-          <div className="h-full w-full animate-[spin-slow_40s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(185,166,255,0.10)_40deg,transparent_80deg,transparent_180deg,rgba(158,230,207,0.08)_220deg,transparent_260deg)] [mask-image:radial-gradient(circle,black_10%,transparent_55%)]" />
+          <div className="h-full w-full animate-[spin-slow_40s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(92,225,255,0.10)_40deg,transparent_80deg,transparent_180deg,rgba(167,139,250,0.08)_220deg,transparent_260deg)] [mask-image:radial-gradient(circle,black_10%,transparent_55%)]" />
         </div>
         {/* ghost wordmark */}
         <motion.div style={{ y: ghostY, scale: ghostScale }} className="fade-in absolute inset-x-0 top-[12%] select-none text-center max-lg:top-[58%]">
@@ -91,6 +106,7 @@ export function Hero() {
       <CompanionSlot
         id="hero"
         variant={current.variant}
+        body={FINISHES[finish].color}
         pose="hero"
         priority
         sizes="(min-width: 1024px) 58vw, 92vw"
@@ -222,15 +238,46 @@ export function Hero() {
                     <motion.span
                       key={`${ci}-${paused}`}
                       className="block h-full rounded-full bg-gradient-to-r from-ember to-peach"
-                      initial={{ width: paused || reduce ? '100%' : '0%' }}
+                      initial={{ width: paused || reduce || locked ? '100%' : '0%' }}
                       animate={{ width: '100%' }}
-                      transition={{ duration: paused || reduce ? 0 : CYCLE_MS / 1000, ease: 'linear' }}
+                      transition={{ duration: paused || reduce || locked ? 0 : CYCLE_MS / 1000, ease: 'linear' }}
                     />
                   )}
                 </span>
               </button>
             ))}
           </div>
+          {live3D && (
+            <div className="flex items-center gap-2 border-t border-white/[0.07] pt-2.5">
+              <span className="font-mono text-[10px] uppercase tracking-wider text-mist">
+                Finish · <span className="text-bone">{FINISHES[finish].name}</span>
+              </span>
+              <div className="ml-auto flex gap-1" role="radiogroup" aria-label="Laptop finish">
+                {FINISHES.map((f, i) => (
+                  <button
+                    key={f.name}
+                    role="radio"
+                    aria-checked={i === finish}
+                    aria-label={f.name}
+                    onClick={() => {
+                      setFinish(i)
+                      setLocked(true)
+                    }}
+                    className="relative grid h-7 w-7 place-items-center"
+                    data-cursor="hover"
+                  >
+                    {i === finish && (
+                      <motion.span layoutId="finish-ring" className="absolute inset-0 rounded-full border-2 border-ember" transition={{ type: 'spring', stiffness: 420, damping: 30 }} />
+                    )}
+                    <span
+                      className="h-[18px] w-[18px] rounded-full border border-white/25 shadow-inner"
+                      style={{ background: f.color ?? 'conic-gradient(from 200deg, #5ce1ff, #a78bfa, #f472b6, #5ce1ff)' }}
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

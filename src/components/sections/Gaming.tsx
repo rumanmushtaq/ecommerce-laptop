@@ -45,13 +45,13 @@ export function Gaming() {
   return (
     <section id="gaming" ref={ref} className="relative overflow-hidden bg-black py-24 md:py-36" aria-label="Gaming laptops and PCs">
       <div aria-hidden className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(50%_45%_at_70%_55%,rgba(255,122,182,0.28),transparent_70%),radial-gradient(40%_40%_at_20%_30%,rgba(143,123,255,0.22),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(50%_45%_at_70%_55%,rgba(255,93,177,0.28),transparent_70%),radial-gradient(40%_40%_at_20%_30%,rgba(139,92,246,0.22),transparent_70%)]" />
         <div className="absolute inset-x-0 bottom-0 h-[55%] [perspective:500px]">
           <div className="absolute inset-0 origin-bottom [transform:rotateX(65deg)] [mask-image:linear-gradient(to_top,black_20%,transparent)] overflow-hidden">
             <div
               className="grid-anim absolute inset-x-0 bottom-0 [--grid-speed:1.2s]"
               style={{
-                backgroundImage: 'linear-gradient(rgba(255,122,182,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(143,123,255,0.45) 1px, transparent 1px)',
+                backgroundImage: 'linear-gradient(rgba(255,93,177,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.45) 1px, transparent 1px)',
                 backgroundSize: '64px 64px',
                 top: '-64px',
               }}
@@ -85,7 +85,7 @@ export function Gaming() {
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 1, ease: EASE }}
               className="text-[clamp(3rem,7.5vw,7rem)] font-black uppercase leading-[0.85] tracking-[-0.05em]"
-              style={{ textShadow: '3px 0 0 rgba(255,122,182,0.55), -3px 0 0 rgba(158,230,207,0.4)' }}
+              style={{ textShadow: '3px 0 0 rgba(255,93,177,0.55), -3px 0 0 rgba(167,139,250,0.4)' }}
             >
               Frames
               <br />
@@ -121,7 +121,7 @@ export function Gaming() {
                   </div>
                   <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.07]">
                     <motion.div
-                      className="h-full rounded-full bg-gradient-to-r from-volt via-plasma to-[#ffb4a2] shadow-[0_0_14px_rgba(255,122,182,0.7)]"
+                      className="h-full rounded-full bg-gradient-to-r from-volt via-plasma to-[#f472b6] shadow-[0_0_14px_rgba(255,93,177,0.7)]"
                       initial={{ width: 0 }}
                       animate={{ width: `${(current.fps[i] / MAX_FPS[i]) * 100}%` }}
                       transition={{ duration: 1.1, delay: i * 0.08, ease: EASE }}
@@ -159,7 +159,7 @@ export function Gaming() {
                     alt={`${product.brand} ${product.name}`}
                     sizes="(min-width: 1024px) 55vw, 92vw"
                     className="h-full w-full"
-                    imgClassName="scale-110 drop-shadow-[0_30px_60px_rgba(255,122,182,0.25)]"
+                    imgClassName="scale-110 drop-shadow-[0_30px_60px_rgba(255,93,177,0.25)]"
                   />
                 </motion.div>
                 )}
@@ -211,7 +211,7 @@ export function Gaming() {
           <MagneticButton
             size="lg"
             onClick={() => shop('gaming')}
-            className="!bg-gradient-to-r from-plasma to-volt !text-white shadow-[0_10px_50px_-10px_rgba(255,122,182,0.8)]"
+            className="!bg-gradient-to-r from-plasma to-volt !text-white shadow-[0_10px_50px_-10px_rgba(255,93,177,0.8)]"
           >
             Shop gaming laptops <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </MagneticButton>

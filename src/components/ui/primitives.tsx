@@ -43,7 +43,7 @@ export function MagneticButton({ variant = 'primary', size = 'md', className = '
   }
 
   const styles = {
-    primary: 'bg-ember text-ink shadow-[0_10px_40px_-10px_rgba(185,166,255,0.7)] hover:bg-ember-soft',
+    primary: 'bg-ember text-ink shadow-[0_10px_40px_-10px_rgba(92,225,255,0.7)] hover:bg-ember-soft',
     ghost: 'glass text-bone hover:bg-white/10',
     light: 'bg-bone text-ink hover:bg-white',
   }[variant]
@@ -282,8 +282,8 @@ export function Logo({ className = '' }: { className?: string }) {
       <svg viewBox="0 0 32 32" className="h-7 w-7" aria-hidden>
         <defs>
           <linearGradient id="lg-n" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#ffb4a2" />
-            <stop offset="1" stopColor="#b9a6ff" />
+            <stop offset="0" stopColor="#f472b6" />
+            <stop offset="1" stopColor="#5ce1ff" />
           </linearGradient>
         </defs>
         <rect x="1" y="1" width="30" height="30" rx="9" fill="none" stroke="rgba(255,255,255,.14)" />

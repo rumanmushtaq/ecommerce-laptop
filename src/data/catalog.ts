@@ -71,9 +71,9 @@ export const products: Product[] = [
     reviews: 1284,
     badge: 'Exclusive',
     image: r('noctis'),
-    glow: '#b9a6ff',
+    glow: '#5ce1ff',
     variant: 'noctis',
-    finishes: [{ name: 'Graphite', color: '#1f1d2b' }, { name: 'Lunar', color: '#c9c6d6' }, { name: 'Dusk Violet', color: '#3a3060' }],
+    finishes: [{ name: 'Graphite', color: '#1a2030' }, { name: 'Lunar', color: '#c9c6d6' }, { name: 'Dusk Violet', color: '#3a3060' }],
     specs: [
       { label: 'CPU', value: 'Core Ultra 9 285H' },
       { label: 'GPU', value: 'RTX 5070 Ti' },
@@ -157,7 +157,7 @@ export const products: Product[] = [
     reviews: 588,
     badge: 'New',
     image: r('stealth'),
-    glow: '#9ee6cf',
+    glow: '#a78bfa',
     variant: 'stealth',
     finishes: [{ name: 'Black', color: '#0c0d0e' }, { name: 'Mercury', color: '#b8bbc2' }],
     specs: [
@@ -354,7 +354,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviews: 1388,
     image: r('studio-display'),
-    glow: '#ffb4a2',
+    glow: '#f472b6',
     model: 'monitor',
     variant: 'studio',
     finishes: [{ name: 'Silver', color: '#c9cbd1' }],
@@ -423,7 +423,7 @@ export const products: Product[] = [
     glow: '#ffc98a',
     model: 'keyboard',
     variant: 'keyboard',
-    finishes: [{ name: 'Midnight', color: '#2a2838' }, { name: 'Lavender', color: '#b9a6ff' }, { name: 'Silver', color: '#c9cbd1' }],
+    finishes: [{ name: 'Midnight', color: '#2a2838' }, { name: 'Lavender', color: '#5ce1ff' }, { name: 'Silver', color: '#c9cbd1' }],
     specs: [
       { label: 'Switches', value: 'Hot-swap linear' },
       { label: 'Layout', value: '75% aluminium' },
@@ -464,7 +464,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviews: 3104,
     image: r('headphones'),
-    glow: '#ffb4a2',
+    glow: '#f472b6',
     model: 'headphones',
     variant: 'headphones',
     finishes: [{ name: 'Platinum', color: '#d9d5e6' }, { name: 'Midnight', color: '#2a2934' }],
@@ -487,10 +487,10 @@ export const products: Product[] = [
     reviews: 2687,
     badge: 'Deal',
     image: r('ssd'),
-    glow: '#b9a6ff',
+    glow: '#5ce1ff',
     model: 'ssd',
     variant: 'ssd',
-    finishes: [{ name: 'Lavender', color: '#b9a6ff' }, { name: 'Black', color: '#1c1b22' }],
+    finishes: [{ name: 'Lavender', color: '#5ce1ff' }, { name: 'Black', color: '#1c1b22' }],
     specs: [
       { label: 'Speed', value: '2,000 MB/s' },
       { label: 'Port', value: 'USB-C 20Gbps' },
@@ -508,7 +508,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviews: 860,
     image: r('dock'),
-    glow: '#9ee6cf',
+    glow: '#a78bfa',
     model: 'dock',
     variant: 'dock',
     finishes: [{ name: 'Space Grey', color: '#1c1b24' }],
@@ -535,7 +535,7 @@ export const categories: {
     kicker: '240Hz · RTX 50',
     copy: 'Desktop-class frames, vapour-chamber cooling and per-key RGB.',
     image: r('stealth'),
-    accent: '#ff7ab6',
+    accent: '#ff5db1',
   },
   {
     id: 'creative',
@@ -551,7 +551,7 @@ export const categories: {
     kicker: 'vPro · 3-yr on-site',
     copy: 'Fleet-ready security, legendary keyboards and featherweight builds.',
     image: r('carbon'),
-    accent: '#9ee6cf',
+    accent: '#a78bfa',
   },
   {
     id: 'ultrabook',
@@ -559,7 +559,7 @@ export const categories: {
     kicker: 'Under 1.4 kg',
     copy: 'All-day battery in chassis thinner than a notebook.',
     image: r('graphite'),
-    accent: '#b9a6ff',
+    accent: '#5ce1ff',
   },
   {
     id: 'everyday',
@@ -567,7 +567,7 @@ export const categories: {
     kicker: 'From $799',
     copy: 'Quiet, light and fast enough for everything else.',
     image: r('sage'),
-    accent: '#9ee6cf',
+    accent: '#a78bfa',
   },
   {
     id: 'desktop',
@@ -575,7 +575,7 @@ export const categories: {
     kicker: 'RTX 5090 · Silent',
     copy: 'Hand-built towers and tiny studios, tuned and burned in by our lab.',
     image: r('forge'),
-    accent: '#ff7ab6',
+    accent: '#ff5db1',
   },
   {
     id: 'monitor',
@@ -583,7 +583,7 @@ export const categories: {
     kicker: 'OLED · 5K · 480Hz',
     copy: 'Colour-true LCD and OLED displays, from 27″ studios to 49″ curves.',
     image: r('odyssey'),
-    accent: '#b9a6ff',
+    accent: '#5ce1ff',
   },
   {
     id: 'accessory',
@@ -591,7 +591,7 @@ export const categories: {
     kicker: 'Keyboards · Audio · Docks',
     copy: 'Everything around the machine: keyboards, mice, audio, storage, docks.',
     image: r('keyboard'),
-    accent: '#ffb4a2',
+    accent: '#f472b6',
   },
 ]
 

@@ -25,9 +25,9 @@ const UI = {
   line: 'rgba(255,255,255,0.07)',
   hi: '#ece9f5',
   lo: '#8f8ba3',
-  lavender: '#b9a6ff',
-  peach: '#ffb4a2',
-  mint: '#9ee6cf',
+  lavender: '#5ce1ff',
+  peach: '#f472b6',
+  mint: '#a78bfa',
 }
 // next/font self-hosts fonts under generated family names; read them from its CSS variables
 const family = (v: string, fallback: string) => getComputedStyle(document.documentElement).getPropertyValue(v).trim() || fallback
@@ -147,16 +147,16 @@ function dock(ctx: Ctx, accent: string) {
   ctx.strokeStyle = 'rgba(255,255,255,0.18)'
   ctx.stroke()
   const palette = [
-    ['#b9a6ff', '#6f5ce0'],
-    ['#ffb4a2', '#ff7a8a'],
-    ['#9ee6cf', '#3fb6a0'],
+    ['#5ce1ff', '#6f5ce0'],
+    ['#f472b6', '#ff7a8a'],
+    ['#a78bfa', '#3fb6a0'],
     ['#ffffff', '#c9c4dc'],
     ['#8fb8ff', '#4f6fe6'],
     ['#ffd58a', '#ff9f5a'],
-    ['#ff7ab6', '#b45cff'],
+    ['#ff5db1', '#b45cff'],
     ['#2b2838', '#121019'],
-    ['#9ee6cf', '#5d8cff'],
-    ['#f3b6a6', '#b9a6ff'],
+    ['#a78bfa', '#5d8cff'],
+    ['#7ee8ff', '#5ce1ff'],
     [accent, '#2a2638'],
   ]
   palette.forEach(([a, b], i) => {
@@ -215,7 +215,7 @@ function videoApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   ctx.fillRect(0, 30, W, 44)
   text(ctx, 'Dune Sessions — Director’s Cut', W / 2, 58, 14, UI.hi, 500, SANS, 'center')
   ;['Import', 'Effects', 'Titles', 'Audio'].forEach((t, i) => {
-    fillRR(ctx, 16 + i * 92, 40, 82, 26, 7, i === 1 ? 'rgba(185,166,255,0.18)' : 'rgba(255,255,255,0.05)')
+    fillRR(ctx, 16 + i * 92, 40, 82, 26, 7, i === 1 ? 'rgba(92,225,255,0.18)' : 'rgba(255,255,255,0.05)')
     text(ctx, t, 57 + i * 92, 58, 12, i === 1 ? UI.lavender : UI.lo, 500, SANS, 'center')
   })
   fillRR(ctx, W - 118, 40, 100, 26, 7, a)
@@ -260,7 +260,7 @@ function videoApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   ;['Lift', 'Gamma', 'Gain'].forEach((t, i) => {
     const cx = 1250 + i * 120
     const g = ctx.createConicGradient(0, cx, 168)
-    ;['#ff6b6b', '#ffd36b', '#7bff9e', '#6bd8ff', '#8f7bff', '#ff6bd5', '#ff6b6b'].forEach((col, k, arr) => g.addColorStop(k / (arr.length - 1), col))
+    ;['#ff6b6b', '#ffd36b', '#7bff9e', '#6bd8ff', '#8b5cf6', '#ff6bd5', '#ff6b6b'].forEach((col, k, arr) => g.addColorStop(k / (arr.length - 1), col))
     ctx.beginPath()
     ctx.arc(cx, 168, 42, 0, Math.PI * 2)
     ctx.fillStyle = g
@@ -312,14 +312,14 @@ function videoApp(ctx: Ctx, img: HTMLImageElement, a: string) {
           for (let f = 0; f * 92 < cw; f++) cover(ctx, img, x + f * 92, y + 4, 92, 52, rand(k + f), 0.5, 2.2)
         })
       } else if (ti >= 3) {
-        fillRR(ctx, x, y + 4, cw - 4, 52, 6, ti === 3 ? 'rgba(158,230,207,0.22)' : 'rgba(255,180,162,0.18)')
+        fillRR(ctx, x, y + 4, cw - 4, 52, 6, ti === 3 ? 'rgba(167,139,250,0.22)' : 'rgba(244,114,182,0.18)')
         ctx.fillStyle = ti === 3 ? UI.mint : UI.peach
         for (let s = 0; s < cw - 10; s += 4) {
           const amp = (Math.abs(Math.sin((s + k * 50) / 23)) * 0.6 + rand(s + k) * 0.4) * 20
           ctx.fillRect(x + 4 + s, y + 30 - amp / 2, 2, amp)
         }
       } else {
-        fillRR(ctx, x, y + 4, cw - 4, 52, 6, ti === 0 ? 'rgba(185,166,255,0.55)' : 'rgba(143,123,255,0.35)')
+        fillRR(ctx, x, y + 4, cw - 4, 52, 6, ti === 0 ? 'rgba(92,225,255,0.55)' : 'rgba(139,92,246,0.35)')
         text(ctx, ti === 0 ? 'Title — Dunes' : 'Grade layer', x + 12, y + 35, 12, '#fff', 500)
       }
       x += w
@@ -358,7 +358,7 @@ function photoApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   ctx.fillRect(0, 30, 250, H - 30)
   text(ctx, 'PRESETS', 20, 62, 11, UI.lo, 600, MONO)
   ;['Original', 'Nordic Fade', 'Velvet Dusk', 'Glacier', 'Kodak 400', 'Mono Silk', 'Lavender Haze', 'Golden Hour', 'Matte Ink'].forEach((p, i) => {
-    if (i === 6) fillRR(ctx, 10, 78 + i * 38, 230, 32, 8, 'rgba(185,166,255,0.16)')
+    if (i === 6) fillRR(ctx, 10, 78 + i * 38, 230, 32, 8, 'rgba(92,225,255,0.16)')
     text(ctx, p, 22, 99 + i * 38, 14, i === 6 ? UI.lavender : UI.hi, i === 6 ? 600 : 400)
   })
   // canvas
@@ -477,7 +477,7 @@ function drawCodeLine(ctx: Ctx, line: string, x: number, y: number) {
     if (p.startsWith("'")) col = UI.peach
     else if (/^\d/.test(p)) col = UI.mint
     else if (KEYWORDS.test(p)) col = '#c4a7ff'
-    else if (/^[A-Z][A-Za-z]+$/.test(p)) col = '#9ee6cf'
+    else if (/^[A-Z][A-Za-z]+$/.test(p)) col = '#a78bfa'
     else if (/^(className|key|initial|whileInView|transition|layout|queryKey|queryFn|staleTime|limit|data|isLoading)$/.test(p)) col = '#8fb8ff'
     else if (/[{}()<>/=[\]]/.test(p)) col = '#9f9ab5'
     ctx.fillStyle = col
@@ -518,7 +518,7 @@ function codeApp(ctx: Ctx, img: HTMLImageElement, a: string) {
     [0, 'vite.config.ts'],
   ]
   tree.forEach(([d, n, on], i) => {
-    if (on) fillRR(ctx, x + 58, y + 82 + i * 30, 238, 26, 6, 'rgba(185,166,255,0.14)')
+    if (on) fillRR(ctx, x + 58, y + 82 + i * 30, 238, 26, 6, 'rgba(92,225,255,0.14)')
     text(ctx, n, x + 74 + d * 16, y + 100 + i * 30, 14, on ? UI.hi : '#b3afc6')
   })
   // tabs
@@ -550,7 +550,7 @@ function codeApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   ctx.fillRect(x + 352 + 290, y + 108 + 17 * 22 - 15, 2, 19)
   // minimap
   lines.forEach((l, i) => {
-    ctx.fillStyle = i === 17 ? 'rgba(185,166,255,0.6)' : 'rgba(255,255,255,0.14)'
+    ctx.fillStyle = i === 17 ? 'rgba(92,225,255,0.6)' : 'rgba(255,255,255,0.14)'
     ctx.fillRect(x + w - 110, y + 92 + i * 6, Math.min(80, l.length * 1.4), 3)
   })
   // terminal
@@ -701,8 +701,8 @@ function gameApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   ctx.globalCompositeOperation = 'source-over'
   // colour grade + vignette
   const grade = ctx.createLinearGradient(0, 0, W, H)
-  grade.addColorStop(0, 'rgba(143,123,255,0.22)')
-  grade.addColorStop(1, 'rgba(255,122,182,0.18)')
+  grade.addColorStop(0, 'rgba(139,92,246,0.22)')
+  grade.addColorStop(1, 'rgba(255,93,177,0.18)')
   ctx.globalCompositeOperation = 'soft-light'
   ctx.fillStyle = grade
   ctx.fillRect(0, 0, W, H)
@@ -905,7 +905,7 @@ export function getScreenTexture(spec: ScreenSpec) {
   canvas.width = cw
   canvas.height = ch
   const ctx = canvas.getContext('2d')!
-  ctx.fillStyle = '#0b0a14'
+  ctx.fillStyle = '#070912'
   ctx.fillRect(0, 0, cw, ch)
   const tex = new CanvasTexture(canvas)
   tex.colorSpace = SRGBColorSpace
@@ -941,7 +941,7 @@ export function getRgbTexture() {
   canvas.height = 4
   const ctx = canvas.getContext('2d')!
   const g = ctx.createLinearGradient(0, 0, 256, 0)
-  ;['#b9a6ff', '#ff7ab6', '#ffb4a2', '#9ee6cf', '#8fb8ff', '#b9a6ff'].forEach((c, i, arr) => g.addColorStop(i / (arr.length - 1), c))
+  ;['#5ce1ff', '#ff5db1', '#f472b6', '#a78bfa', '#8fb8ff', '#5ce1ff'].forEach((c, i, arr) => g.addColorStop(i / (arr.length - 1), c))
   ctx.fillStyle = g
   ctx.fillRect(0, 0, 256, 4)
   const tex = new CanvasTexture(canvas)

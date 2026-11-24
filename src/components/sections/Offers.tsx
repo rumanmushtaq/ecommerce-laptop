@@ -95,7 +95,7 @@ function TradeIn() {
       className="relative flex h-full flex-col overflow-hidden rounded-[28px] border border-transparent p-6 sm:p-7"
       style={{
         background:
-          'radial-gradient(90% 70% at 100% 0%, rgba(158,230,207,0.28), transparent 65%), linear-gradient(160deg, #142624, #11101f) padding-box, linear-gradient(150deg, #9ee6cf, rgba(255,255,255,0.05) 50%, #9ee6cf55) border-box',
+          'radial-gradient(90% 70% at 100% 0%, rgba(167,139,250,0.28), transparent 65%), linear-gradient(160deg, #121a36, #0a0d1c) padding-box, linear-gradient(150deg, #a78bfa, rgba(255,255,255,0.05) 50%, #a78bfa55) border-box',
       }}
     >
       <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ice">
@@ -151,7 +151,7 @@ export function Offers() {
         {/* Hero deal */}
         <Reveal className="h-full">
           <Tilt max={3} className="h-full rounded-[32px]">
-            <div className="group relative flex h-full flex-col overflow-hidden rounded-[32px] border border-white/[0.08] bg-[radial-gradient(80%_70%_at_70%_40%,rgba(157,123,255,0.25),transparent_70%),linear-gradient(160deg,#1a1828,#0d0c16)] p-6 sm:p-9">
+            <div className="group relative flex h-full flex-col overflow-hidden rounded-[32px] border border-white/[0.08] bg-[radial-gradient(80%_70%_at_70%_40%,rgba(157,123,255,0.25),transparent_70%),linear-gradient(160deg,#10162a,#0d0c16)] p-6 sm:p-9">
               <div className="flex flex-wrap items-start justify-between gap-6">
                 <div>
                   <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-ember">Deal of the week</p>
@@ -166,7 +166,7 @@ export function Offers() {
               </div>
 
               <div className="relative my-4 flex-1">
-                <div className="absolute -top-2 right-2 z-10 grid h-24 w-24 rotate-12 place-items-center rounded-full bg-ember text-center font-medium leading-tight text-ink shadow-[0_20px_50px_-10px_rgba(185,166,255,0.7)] transition-transform duration-700 group-hover:rotate-0 sm:h-28 sm:w-28">
+                <div className="absolute -top-2 right-2 z-10 grid h-24 w-24 rotate-12 place-items-center rounded-full bg-ember text-center font-medium leading-tight text-ink shadow-[0_20px_50px_-10px_rgba(92,225,255,0.7)] transition-transform duration-700 group-hover:rotate-0 sm:h-28 sm:w-28">
                   <span>
                     <span className="block text-2xl tracking-tight sm:text-3xl">−{Math.round((1 - deal.price / deal.compareAt!) * 100)}%</span>
                     <span className="font-mono text-[9px] uppercase tracking-wider">this week</span>
@@ -208,7 +208,7 @@ export function Offers() {
             <button
               onClick={() => shop('creative')}
               data-cursor="hover"
-              className="group relative flex h-full min-h-[280px] w-full flex-col overflow-hidden rounded-[28px] border border-white/[0.07] bg-gradient-to-br from-[#1d1622] to-coal p-6 text-left sm:p-7"
+              className="group relative flex h-full min-h-[280px] w-full flex-col overflow-hidden rounded-[28px] border border-white/[0.07] bg-gradient-to-br from-[#1a1230] to-coal p-6 text-left sm:p-7"
             >
               <LazyImage
                 src="/renders/silver-side.webp"

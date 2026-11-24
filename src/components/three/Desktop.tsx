@@ -41,7 +41,7 @@ export const monitorVariants = {
     metalness: 0.95,
     roughness: 0.28,
     stand: 'plate',
-    screen: { app: 'desktop', photo: 'river', accent: '#9ee6cf', size: [1600, 900] },
+    screen: { app: 'desktop', photo: 'river', accent: '#a78bfa', size: [1600, 900] },
   },
   odyssey: {
     width: 5.8,
@@ -51,8 +51,8 @@ export const monitorVariants = {
     metalness: 0.3,
     roughness: 0.45,
     stand: 'v',
-    glow: '#b9a6ff',
-    screen: { app: 'game', photo: 'peaks', accent: '#ff7ab6', size: [2560, 720] },
+    glow: '#5ce1ff',
+    screen: { app: 'game', photo: 'peaks', accent: '#ff5db1', size: [2560, 720] },
   },
   ultrafine: {
     width: 3.9,
@@ -61,7 +61,7 @@ export const monitorVariants = {
     metalness: 0.6,
     roughness: 0.4,
     stand: 'plate',
-    screen: { app: 'video', photo: 'dune', accent: '#b9a6ff', size: [1600, 900] },
+    screen: { app: 'video', photo: 'dune', accent: '#5ce1ff', size: [1600, 900] },
   },
   swift: {
     width: 3.5,
@@ -70,14 +70,14 @@ export const monitorVariants = {
     metalness: 0.5,
     roughness: 0.45,
     stand: 'v',
-    glow: '#ff7ab6',
-    screen: { app: 'game', photo: 'city', accent: '#ff7ab6', size: [1600, 900] },
+    glow: '#ff5db1',
+    screen: { app: 'game', photo: 'city', accent: '#ff5db1', size: [1600, 900] },
   },
 } satisfies Record<string, MonitorVariant>
 
 export const towerVariants = {
-  forge: { shell: '#17161f', trim: '#2a2838', metalness: 0.6, roughness: 0.4, fans: ['#b9a6ff', '#ff7ab6', '#9ee6cf'] },
-  frost: { shell: '#e6e4ec', trim: '#c9c6d4', metalness: 0.35, roughness: 0.45, fans: ['#9ee6cf', '#b9a6ff', '#ffb4a2'] },
+  forge: { shell: '#17161f', trim: '#2a2838', metalness: 0.6, roughness: 0.4, fans: ['#5ce1ff', '#ff5db1', '#a78bfa'] },
+  frost: { shell: '#e6e4ec', trim: '#c9c6d4', metalness: 0.35, roughness: 0.45, fans: ['#a78bfa', '#5ce1ff', '#f472b6'] },
 } satisfies Record<string, TowerVariant>
 
 export type MonitorKey = keyof typeof monitorVariants
@@ -353,7 +353,7 @@ export function Compact({ body = '#c9cbd1' }: { body?: string }) {
       </RoundedBox>
       <mesh position={[0.78, 0.28, W / 2 + 0.002]}>
         <circleGeometry args={[0.014, 16]} />
-        <meshStandardMaterial color="#9ee6cf" emissive="#9ee6cf" emissiveIntensity={3} toneMapped={false} />
+        <meshStandardMaterial color="#a78bfa" emissive="#a78bfa" emissiveIntensity={3} toneMapped={false} />
       </mesh>
       {/* Logo on the lid */}
       <mesh position={[0, H + 0.051, 0]} rotation-x={-Math.PI / 2}>

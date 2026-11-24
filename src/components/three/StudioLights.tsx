@@ -3,8 +3,8 @@ import { Environment, Lightformer } from '@react-three/drei'
 /** Procedural studio environment: softboxes + coloured rims, no HDR download.
  *  `mood` tints the rim lights so a scene can lean warm (brand) or neon (gaming). */
 export function StudioLights({ mood = 'brand' }: { mood?: 'brand' | 'neon' | 'neutral' }) {
-  const rimA = mood === 'neon' ? '#ff7ab6' : mood === 'brand' ? '#b9a6ff' : '#ffffff'
-  const rimB = mood === 'neon' ? '#8f7bff' : mood === 'brand' ? '#9ee6cf' : '#dfe6ff'
+  const rimA = mood === 'neon' ? '#ff5db1' : mood === 'brand' ? '#5ce1ff' : '#ffffff'
+  const rimB = mood === 'neon' ? '#8b5cf6' : mood === 'brand' ? '#a78bfa' : '#dfe6ff'
   return (
     <>
       <ambientLight intensity={0.25} />

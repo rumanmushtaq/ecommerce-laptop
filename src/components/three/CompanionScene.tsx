@@ -14,6 +14,8 @@ interface Slot {
   cy: number
   w: number
   variant: VariantKey
+  /** Optional chassis colour override (hero finish configurator) */
+  body?: string
   pose: CompanionPose
 }
 
@@ -37,7 +39,7 @@ function readSlots(): Slot[] {
     if (!v || v === 'none') return
     const r = el.getBoundingClientRect()
     if (r.width < 2) return // hidden at this breakpoint
-    out.push({ el, cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: r.width, variant: v as VariantKey, pose: (el.dataset.pose ?? 'float') as CompanionPose })
+    out.push({ el, cx: r.left + r.width / 2, cy: r.top + r.height / 2, w: r.width, variant: v as VariantKey, body: el.dataset.body || undefined, pose: (el.dataset.pose ?? 'float') as CompanionPose })
   })
   return out.sort((a, b) => a.cy - b.cy)
 }
@@ -57,8 +59,9 @@ function Traveller({ reduced }: { reduced: boolean }) {
   const burst = useRef<Mesh>(null)
   const shadow = useRef<Mesh>(null)
   const drive = useRef({ lid: 1.85, power: 1 })
-  const [shown, setShown] = useState<VariantKey>('noctis')
-  const state = useRef({ shown: 'noctis' as VariantKey, morph: -1, target: 'noctis' as VariantKey, swapped: false, burst: -1, first: true })
+  const [shown, setShown] = useState<{ variant: VariantKey; body?: string }>({ variant: 'noctis' })
+  // Designs are compared as "variant|body" keys
+  const state = useRef({ shown: 'noctis|', morph: -1, target: 'noctis|', swapped: false, burst: -1, first: true })
   const { camera, size } = useThree()
 
   const v = useMemo(() => ({ ndc: new Vector3(), p: new Vector3(), l: new Vector3(), r: new Vector3() }), [])
@@ -166,9 +169,10 @@ function Traveller({ reduced }: { reduced: boolean }) {
     if (!reduced) or.position.y = Math.sin(time * 0.9) * 0.05
 
     // ---- Design swap: spin a full turn, dip the screen, swap the model at the edge-on moment
-    if (st.morph < 0 && slot.variant !== st.shown) {
+    const want = `${slot.variant}|${slot.body ?? ''}`
+    if (st.morph < 0 && want !== st.shown) {
       st.morph = 0
-      st.target = slot.variant
+      st.target = want
       st.swapped = false
     }
     let power = 1
@@ -178,7 +182,8 @@ function Traveller({ reduced }: { reduced: boolean }) {
         st.swapped = true
         st.shown = st.target
         st.burst = 0
-        setShown(st.target)
+        const [variant, body] = st.target.split('|')
+        setShown({ variant: variant as VariantKey, body: body || undefined })
       }
       const m = Math.min(st.morph, 1)
       mg.rotation.y = reduced ? 0 : easeInOut(m) * Math.PI * 2
@@ -208,7 +213,7 @@ function Traveller({ reduced }: { reduced: boolean }) {
     if (shadow.current) (shadow.current.material as MeshBasicMaterial).opacity = 0.6 * (1 - travel * 0.8)
   })
 
-  const accent = useMemo(() => new Color(variants[shown].logoColor), [shown])
+  const accent = useMemo(() => new Color(shown.body ?? variants[shown.variant].logoColor), [shown])
 
   return (
     <group ref={outer}>
@@ -224,7 +229,7 @@ function Traveller({ reduced }: { reduced: boolean }) {
         <group ref={morphG}>
           {/* Offset so rotations pivot around the laptop's visual centre */}
           <group position={[0, -0.95, 0.35]}>
-            <Laptop variant={shown} drive={drive} liveScreen={shown === 'noctis'} />
+            <Laptop variant={shown.variant} body={shown.body} drive={drive} liveScreen={shown.variant === 'noctis'} />
           </group>
         </group>
       </group>
@@ -268,8 +273,8 @@ export default function CompanionScene({ reduced, onReady }: { reduced: boolean;
     >
       <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(1.5)} flipflops={3} onFallback={() => setDpr(1)} />
       <StudioLights mood="brand" />
-      <pointLight position={[-6, 4, 4]} color="#b9a6ff" intensity={18} distance={20} decay={1.4} />
-      <pointLight position={[6, 2, 3]} color="#9ee6cf" intensity={12} distance={20} decay={1.4} />
+      <pointLight position={[-6, 4, 4]} color="#5ce1ff" intensity={18} distance={20} decay={1.4} />
+      <pointLight position={[6, 2, 3]} color="#a78bfa" intensity={12} distance={20} decay={1.4} />
       <Traveller reduced={reduced} />
     </Canvas>
   )

@@ -9,18 +9,18 @@
 }
 
 @theme {
-  --color-ink: #0b0a14;
-  --color-coal: #100f1b;
-  --color-graphite: #17162a;
-  --color-steel: #262439;
-  --color-bone: #eeeaf7;
-  --color-mist: #9a96ad;
-  --color-ember: #b9a6ff;
-  --color-ember-soft: #d4c8ff;
-  --color-ice: #9ee6cf;
-  --color-plasma: #ff7ab6;
-  --color-volt: #8f7bff;
-  --color-peach: #ffb4a2;
+  --color-ink: #070912;
+  --color-coal: #0b0e1a;
+  --color-graphite: #111627;
+  --color-steel: #1d2440;
+  --color-bone: #eef4ff;
+  --color-mist: #8d9ab8;
+  --color-ember: #5ce1ff;
+  --color-ember-soft: #a5f0ff;
+  --color-ice: #a78bfa;
+  --color-plasma: #ff5db1;
+  --color-volt: #8b5cf6;
+  --color-peach: #f472b6;
 
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -175,6 +175,11 @@
 .rise-in { animation: rise-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .word-up { display: inline-block; animation: word-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .fade-in { animation: fade-in 1.4s ease-out both; }
+
+@keyframes scan {
+  0%, 100% { transform: translateY(-24px); }
+  50% { transform: translateY(84px); }
+}
 
 @keyframes shimmer {
   to { transform: translateX(100%); }

@@ -26,17 +26,17 @@ export interface LaptopVariant {
  *  imagery shares the same lighting, angle and material language. */
 export const variants = {
   noctis: {
-    body: '#1f1d2b',
+    body: '#1a2030',
     metalness: 0.85,
     roughness: 0.32,
-    trim: '#f3b6a6',
+    trim: '#7ee8ff',
     deck: '#141519',
     keys: '#0d0d10',
-    backlight: '#ffb4a2',
+    backlight: '#f472b6',
     logo: 'ring',
-    logoColor: '#b9a6ff',
+    logoColor: '#5ce1ff',
     thickness: 0.11,
-    screen: { app: 'video', photo: 'dune', accent: '#b9a6ff' },
+    screen: { app: 'video', photo: 'dune', accent: '#5ce1ff' },
   },
   silver: {
     body: '#c8cad0',
@@ -47,7 +47,7 @@ export const variants = {
     logo: 'dot',
     logoColor: '#f5f5f7',
     thickness: 0.1,
-    screen: { app: 'photo', photo: 'fjord', accent: '#ffb4a2' },
+    screen: { app: 'photo', photo: 'fjord', accent: '#f472b6' },
   },
   graphite: {
     body: '#3a3c42',
@@ -59,7 +59,7 @@ export const variants = {
     logo: 'bar',
     logoColor: '#d9dce3',
     thickness: 0.1,
-    screen: { app: 'code', photo: 'highlands', accent: '#b9a6ff' },
+    screen: { app: 'code', photo: 'highlands', accent: '#5ce1ff' },
   },
   carbon: {
     body: '#141416',
@@ -70,7 +70,7 @@ export const variants = {
     logo: 'dot',
     logoColor: '#ff2a2a',
     thickness: 0.12,
-    screen: { app: 'dashboard', photo: 'towers', accent: '#8f7bff' },
+    screen: { app: 'dashboard', photo: 'towers', accent: '#8b5cf6' },
   },
   eclipse: {
     body: '#2d2f36',
@@ -83,7 +83,7 @@ export const variants = {
     logoColor: '#f4f6ff',
     thickness: 0.14,
     gaming: true,
-    screen: { app: 'game', photo: 'city', accent: '#ff7ab6' },
+    screen: { app: 'game', photo: 'city', accent: '#ff5db1' },
   },
   stealth: {
     body: '#0c0d0e',
@@ -93,10 +93,10 @@ export const variants = {
     keys: '#08090a',
     backlight: 'rgb',
     logo: 'ring',
-    logoColor: '#9ee6cf',
+    logoColor: '#a78bfa',
     thickness: 0.14,
     gaming: true,
-    screen: { app: 'game', photo: 'valley', accent: '#9ee6cf' },
+    screen: { app: 'game', photo: 'valley', accent: '#a78bfa' },
   },
   copper: {
     body: '#1b1c22',
@@ -109,7 +109,7 @@ export const variants = {
     logo: 'bar',
     logoColor: '#d29a6a',
     thickness: 0.1,
-    screen: { app: 'browser', photo: 'canal', accent: '#ffb4a2' },
+    screen: { app: 'browser', photo: 'canal', accent: '#f472b6' },
   },
   sage: {
     body: '#aab4a8',
@@ -120,7 +120,7 @@ export const variants = {
     logo: 'ring',
     logoColor: '#e8eee6',
     thickness: 0.1,
-    screen: { app: 'desktop', photo: 'river', accent: '#9ee6cf' },
+    screen: { app: 'desktop', photo: 'river', accent: '#a78bfa' },
   },
   titan: {
     body: '#101113',
@@ -130,10 +130,10 @@ export const variants = {
     keys: '#07080a',
     backlight: 'rgb',
     logo: 'matrix',
-    logoColor: '#ff7ab6',
+    logoColor: '#ff5db1',
     thickness: 0.2,
     gaming: true,
-    screen: { app: 'game', photo: 'peaks', accent: '#ff7ab6' },
+    screen: { app: 'game', photo: 'peaks', accent: '#ff5db1' },
   },
 } satisfies Record<string, LaptopVariant>
 

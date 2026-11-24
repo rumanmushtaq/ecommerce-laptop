@@ -32,6 +32,7 @@ export function CompanionSlot({
   className = '',
   priority = false,
   sizes = '(min-width: 1024px) 50vw, 92vw',
+  body,
 }: {
   id: string
   variant: VariantKey | 'none'
@@ -39,13 +40,15 @@ export function CompanionSlot({
   className?: string
   priority?: boolean
   sizes?: string
+  /** Chassis colour override for the live 3D laptop (finish configurator) */
+  body?: string
 }) {
   const { active } = useCompanion()
   const live = active && variant !== 'none'
   // Callers may position the slot themselves; otherwise it anchors its own image layer
   const position = /(^|\s)!?(absolute|fixed)(\s|$)/.test(className) ? '' : 'relative'
   return (
-    <div data-companion={id} data-variant={variant} data-pose={pose} className={`${position} ${className}`} style={{ aspectRatio: '4 / 3' }}>
+    <div data-companion={id} data-variant={variant} data-body={body ?? ''} data-pose={pose} className={`${position} ${className}`} style={{ aspectRatio: '4 / 3' }}>
       <AnimatePresence initial={false}>
         {variant !== 'none' && (
           <motion.div

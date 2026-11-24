@@ -139,7 +139,7 @@ export function AuroraBackdrop() {
       className="pointer-events-none fixed inset-0 -z-10"
       style={{
         background:
-          'radial-gradient(60vmax 50vmax at 0% 0%, rgba(185,166,255,0.10), transparent 70%), radial-gradient(55vmax 45vmax at 100% 30%, rgba(255,180,162,0.07), transparent 70%), radial-gradient(50vmax 40vmax at 30% 100%, rgba(158,230,207,0.05), transparent 70%)',
+          'radial-gradient(60vmax 50vmax at 0% 0%, rgba(92,225,255,0.10), transparent 70%), radial-gradient(55vmax 45vmax at 100% 30%, rgba(244,114,182,0.07), transparent 70%), radial-gradient(50vmax 40vmax at 30% 100%, rgba(167,139,250,0.05), transparent 70%)',
       }}
     />
   )

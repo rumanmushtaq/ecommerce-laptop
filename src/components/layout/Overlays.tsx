@@ -277,7 +277,7 @@ export function SearchOverlay() {
       const el = document.getElementById(`product-${id}`)
       if (el && smooth.lenis) smooth.lenis.scrollTo(el, { offset: -(window.innerHeight - el.offsetHeight) / 2, duration: 1.4 })
       else el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      el?.animate([{ boxShadow: '0 0 0 2px #b9a6ff' }, { boxShadow: '0 0 0 2px transparent' }], { duration: 1800, delay: 500 })
+      el?.animate([{ boxShadow: '0 0 0 2px #5ce1ff' }, { boxShadow: '0 0 0 2px transparent' }], { duration: 1800, delay: 500 })
     }, 350)
   }
 
