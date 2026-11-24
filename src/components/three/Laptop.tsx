@@ -279,7 +279,7 @@ export function Laptop({ variant = 'noctis', lid = 1.9, power = 1, drive, body, 
         {/* Webcam */}
         <mesh position={[0, -0.0025, D - 0.035]} rotation={[Math.PI / 2, 0, 0]}>
           <circleGeometry args={[0.012, 16]} />
-          <meshStandardMaterial color="#0d1830" roughness={0.1} metalness={0.6} />
+          <meshStandardMaterial color="#1a1410" roughness={0.1} metalness={0.6} />
         </mesh>
 
         {/* Lid logo */}

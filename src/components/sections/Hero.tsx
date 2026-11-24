@@ -23,11 +23,11 @@ const CYCLE_MS = 4200
 // Finish configurator: repaints the live 3D chassis (first entry keeps each design's own colour)
 const FINISHES: { name: string; color?: string }[] = [
   { name: 'Signature' },
-  { name: 'Obsidian', color: '#0d1018' },
+  { name: 'Obsidian', color: '#0e0e10' },
   { name: 'Arctic Silver', color: '#c9d3e0' },
-  { name: 'Glacier Cyan', color: '#3fa9c9' },
-  { name: 'Nebula Violet', color: '#4b3a8f' },
-  { name: 'Rose Quartz', color: '#d98aa8' },
+  { name: 'Molten Orange', color: '#e8651f' },
+  { name: 'Gunmetal', color: '#45484f' },
+  { name: 'Burnt Copper', color: '#b8693a' },
 ]
 
 /** One headline word rising out of its own mask; pure CSS so it plays before hydration. */
@@ -75,7 +75,7 @@ export function Hero() {
     <section id="top" ref={ref} className="relative min-h-[100svh] overflow-hidden" aria-label="Noctis Studio 16">
       {/* -------- Backdrop -------- */}
       <div aria-hidden className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_68%_45%,rgba(92,225,255,0.16),transparent_60%),radial-gradient(ellipse_60%_50%_at_85%_20%,rgba(167,139,250,0.10),transparent_60%),radial-gradient(ellipse_70%_60%_at_10%_90%,rgba(139,92,246,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_68%_45%,rgba(255,122,26,0.16),transparent_60%),radial-gradient(ellipse_60%_50%_at_85%_20%,rgba(201,201,207,0.10),transparent_60%),radial-gradient(ellipse_70%_60%_at_10%_90%,rgba(245,158,11,0.08),transparent_60%)]" />
         {/* Aurora: three soft light ribbons drifting behind the product (animated on desktop only) */}
         <div className="aurora absolute inset-0 overflow-hidden">
           <span className="aurora-ribbon aurora-a" />
@@ -98,7 +98,7 @@ export function Hero() {
         </div>
         {/* rotating light cone behind the product */}
         <div className="absolute left-[68%] top-[46%] h-[120vmax] w-[120vmax] -translate-x-1/2 -translate-y-1/2 opacity-60 max-lg:left-1/2 max-lg:top-[72%]">
-          <div className="h-full w-full animate-[spin-slow_40s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(92,225,255,0.10)_40deg,transparent_80deg,transparent_180deg,rgba(167,139,250,0.08)_220deg,transparent_260deg)] [mask-image:radial-gradient(circle,black_10%,transparent_55%)]" />
+          <div className="h-full w-full animate-[spin-slow_40s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(255,122,26,0.10)_40deg,transparent_80deg,transparent_180deg,rgba(201,201,207,0.08)_220deg,transparent_260deg)] [mask-image:radial-gradient(circle,black_10%,transparent_55%)]" />
         </div>
         {/* ghost wordmark */}
         <motion.div style={{ y: ghostY, scale: ghostScale }} className="fade-in absolute inset-x-0 top-[12%] select-none text-center max-lg:top-[58%]">
@@ -277,7 +277,7 @@ export function Hero() {
                     )}
                     <span
                       className="h-[18px] w-[18px] rounded-full border border-white/25 shadow-inner"
-                      style={{ background: f.color ?? 'conic-gradient(from 200deg, #5ce1ff, #a78bfa, #f472b6, #5ce1ff)' }}
+                      style={{ background: f.color ?? 'conic-gradient(from 200deg, #ff7a1a, #c9c9cf, #ffb35c, #ff7a1a)' }}
                     />
                   </button>
                 ))}

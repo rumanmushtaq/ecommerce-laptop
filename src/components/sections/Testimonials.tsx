@@ -57,7 +57,7 @@ export function Testimonials() {
           className="relative flex min-h-[460px] flex-col overflow-hidden rounded-[32px] border border-transparent p-7 sm:p-10"
           style={{
             background:
-              'radial-gradient(80% 70% at 100% 0%, rgba(244,114,182,0.22), transparent 60%), radial-gradient(70% 60% at 0% 100%, rgba(92,225,255,0.25), transparent 60%), linear-gradient(160deg, #101a36, #0a0f22) padding-box, linear-gradient(140deg, #5ce1ff, rgba(255,255,255,0.05) 45%, #f472b6) border-box',
+              'radial-gradient(80% 70% at 100% 0%, rgba(255,179,92,0.22), transparent 60%), radial-gradient(70% 60% at 0% 100%, rgba(255,122,26,0.25), transparent 60%), linear-gradient(160deg, #1c1c1f, #0e0e10) padding-box, linear-gradient(140deg, #ff7a1a, rgba(255,255,255,0.05) 45%, #ffb35c) border-box',
           }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}

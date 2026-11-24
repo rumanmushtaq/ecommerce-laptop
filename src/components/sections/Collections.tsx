@@ -48,7 +48,7 @@ export function Collections() {
                   className="absolute inset-0"
                   animate={{ opacity: on ? 1 : 0.7 }}
                   transition={{ duration: 0.9 }}
-                  style={{ background: `radial-gradient(90% 70% at 60% 45%, ${c.accent}66, transparent 72%), linear-gradient(180deg, #10162a, #0b0e1a)` }}
+                  style={{ background: `radial-gradient(90% 70% at 60% 45%, ${c.accent}66, transparent 72%), linear-gradient(180deg, #18181a, #111112)` }}
                 />
                 <div className="absolute inset-0 opacity-[0.15] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
                 {/* accent light pooling at the base of each panel */}
@@ -124,7 +124,7 @@ export function Collections() {
             key={c.id}
             onClick={() => shop(c.id)}
             className="relative flex h-[440px] w-[80vw] max-w-[380px] shrink-0 snap-center flex-col justify-end rounded-[24px] border p-6 text-left"
-            style={{ background: `radial-gradient(90% 60% at 50% 35%, ${c.accent}60, transparent 72%), linear-gradient(180deg,#10162a,#0b0e1a)`, borderColor: `${c.accent}55` }}
+            style={{ background: `radial-gradient(90% 60% at 50% 35%, ${c.accent}60, transparent 72%), linear-gradient(180deg,#18181a,#111112)`, borderColor: `${c.accent}55` }}
           >
             <LazyImage
               src={c.image}

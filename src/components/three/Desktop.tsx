@@ -41,7 +41,7 @@ export const monitorVariants = {
     metalness: 0.95,
     roughness: 0.28,
     stand: 'plate',
-    screen: { app: 'desktop', photo: 'river', accent: '#a78bfa', size: [1600, 900] },
+    screen: { app: 'desktop', photo: 'river', accent: '#c9c9cf', size: [1600, 900] },
   },
   odyssey: {
     width: 5.8,
@@ -51,8 +51,8 @@ export const monitorVariants = {
     metalness: 0.3,
     roughness: 0.45,
     stand: 'v',
-    glow: '#5ce1ff',
-    screen: { app: 'game', photo: 'peaks', accent: '#ff5db1', size: [2560, 720] },
+    glow: '#ff7a1a',
+    screen: { app: 'game', photo: 'peaks', accent: '#ff4d1f', size: [2560, 720] },
   },
   ultrafine: {
     width: 3.9,
@@ -61,7 +61,7 @@ export const monitorVariants = {
     metalness: 0.6,
     roughness: 0.4,
     stand: 'plate',
-    screen: { app: 'video', photo: 'dune', accent: '#5ce1ff', size: [1600, 900] },
+    screen: { app: 'video', photo: 'dune', accent: '#ff7a1a', size: [1600, 900] },
   },
   swift: {
     width: 3.5,
@@ -70,14 +70,14 @@ export const monitorVariants = {
     metalness: 0.5,
     roughness: 0.45,
     stand: 'v',
-    glow: '#ff5db1',
-    screen: { app: 'game', photo: 'city', accent: '#ff5db1', size: [1600, 900] },
+    glow: '#ff4d1f',
+    screen: { app: 'game', photo: 'city', accent: '#ff4d1f', size: [1600, 900] },
   },
 } satisfies Record<string, MonitorVariant>
 
 export const towerVariants = {
-  forge: { shell: '#17161f', trim: '#2a2838', metalness: 0.6, roughness: 0.4, fans: ['#5ce1ff', '#ff5db1', '#a78bfa'] },
-  frost: { shell: '#e6e4ec', trim: '#c9c6d4', metalness: 0.35, roughness: 0.45, fans: ['#a78bfa', '#5ce1ff', '#f472b6'] },
+  forge: { shell: '#17161f', trim: '#2a2838', metalness: 0.6, roughness: 0.4, fans: ['#ff7a1a', '#ff4d1f', '#c9c9cf'] },
+  frost: { shell: '#e6e4ec', trim: '#c9c6d4', metalness: 0.35, roughness: 0.45, fans: ['#c9c9cf', '#ff7a1a', '#ffb35c'] },
 } satisfies Record<string, TowerVariant>
 
 export type MonitorKey = keyof typeof monitorVariants
@@ -310,7 +310,7 @@ export function Tower({ variant = 'forge', spin = false, body }: { variant?: Tow
       {/* Tempered glass side */}
       <mesh position={[W / 2 - 0.004, H / 2, 0]} rotation-y={Math.PI / 2}>
         <planeGeometry args={[D - 0.02, H - 0.1]} />
-        <meshPhysicalMaterial color="#d9d6ff" transparent opacity={0.12} roughness={0.04} metalness={0} clearcoat={1} depthWrite={false} />
+        <meshPhysicalMaterial color="#ffe2cc" transparent opacity={0.12} roughness={0.04} metalness={0} clearcoat={1} depthWrite={false} />
       </mesh>
       {/* Feet */}
       {[-1, 1].map((sx) =>
@@ -353,7 +353,7 @@ export function Compact({ body = '#c9cbd1' }: { body?: string }) {
       </RoundedBox>
       <mesh position={[0.78, 0.28, W / 2 + 0.002]}>
         <circleGeometry args={[0.014, 16]} />
-        <meshStandardMaterial color="#a78bfa" emissive="#a78bfa" emissiveIntensity={3} toneMapped={false} />
+        <meshStandardMaterial color="#c9c9cf" emissive="#c9c9cf" emissiveIntensity={3} toneMapped={false} />
       </mesh>
       {/* Logo on the lid */}
       <mesh position={[0, H + 0.051, 0]} rotation-x={-Math.PI / 2}>

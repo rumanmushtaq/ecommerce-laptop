@@ -44,7 +44,7 @@ export function MagneticButton({ variant = 'primary', size = 'md', className = '
 
   const styles = {
     primary:
-      'bg-[linear-gradient(110deg,#5ce1ff,#a78bfa_55%,#f472b6)] bg-[length:160%_100%] bg-left text-ink shadow-[0_10px_40px_-10px_rgba(92,225,255,0.8),0_0_0_1px_rgba(255,255,255,0.12)_inset] transition-[background-position,box-shadow] duration-500 hover:bg-right hover:shadow-[0_14px_50px_-8px_rgba(167,139,250,0.9)]',
+      'bg-[linear-gradient(110deg,#ff7a1a,#ffb020_55%,#ff4d1f)] bg-[length:160%_100%] bg-left text-ink shadow-[0_10px_40px_-10px_rgba(255,122,26,0.8),0_0_0_1px_rgba(255,255,255,0.12)_inset] transition-[background-position,box-shadow] duration-500 hover:bg-right hover:shadow-[0_14px_50px_-8px_rgba(255,122,26,0.95)]',
     ghost: 'glass text-bone hover:bg-white/10',
     light: 'bg-bone text-ink hover:bg-white',
   }[variant]
@@ -283,8 +283,8 @@ export function Logo({ className = '' }: { className?: string }) {
       <svg viewBox="0 0 32 32" className="h-7 w-7" aria-hidden>
         <defs>
           <linearGradient id="lg-n" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f472b6" />
-            <stop offset="1" stopColor="#5ce1ff" />
+            <stop offset="0" stopColor="#ffb35c" />
+            <stop offset="1" stopColor="#ff7a1a" />
           </linearGradient>
         </defs>
         <rect x="1" y="1" width="30" height="30" rx="9" fill="none" stroke="rgba(255,255,255,.14)" />

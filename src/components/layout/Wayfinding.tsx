@@ -68,7 +68,7 @@ export function SectionRail() {
                 </span>
                 <motion.span
                   className="block h-px rounded-full"
-                  animate={{ width: on ? 28 : 12, backgroundColor: on ? '#5ce1ff' : 'rgba(238,244,255,0.25)' }}
+                  animate={{ width: on ? 28 : 12, backgroundColor: on ? '#ff7a1a' : 'rgba(245,243,240,0.25)' }}
                   transition={{ duration: 0.5, ease: EASE }}
                 />
               </button>

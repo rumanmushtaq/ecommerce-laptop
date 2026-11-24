@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#070912',
+  themeColor: '#0a0a0b',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -21,9 +21,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       className={`${geist.variable} ${geistMono.variable} ${instrument.variable}`}
-      style={{ backgroundColor: '#070912', colorScheme: 'dark' }}
+      style={{ backgroundColor: '#0a0a0b', colorScheme: 'dark' }}
     >
-      <body style={{ backgroundColor: '#070912', color: '#eef4ff' }}>{children}</body>
+      <body style={{ backgroundColor: '#0a0a0b', color: '#f5f3f0' }}>{children}</body>
     </html>
   )
 }

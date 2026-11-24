@@ -30,7 +30,7 @@ function Tile({
       whileHover={{ y: -4 }}
       className={`group relative flex flex-col overflow-hidden rounded-[28px] border border-transparent p-6 ${className}`}
       style={{
-        background: `radial-gradient(90% 70% at 100% 0%, ${tint}38, transparent 65%), linear-gradient(165deg, #10172d, #0a0e1c) padding-box, linear-gradient(150deg, ${tint}, rgba(255,255,255,0.05) 45%, ${tint}55) border-box`,
+        background: `radial-gradient(90% 70% at 100% 0%, ${tint}38, transparent 65%), linear-gradient(165deg, #18181a, #0d0d0e) padding-box, linear-gradient(150deg, ${tint}, rgba(255,255,255,0.05) 45%, ${tint}55) border-box`,
       }}
     >
       <span aria-hidden className="holo-edge" />
@@ -56,8 +56,8 @@ function DeliveryMap({ reduce }: { reduce: boolean }) {
       <svg viewBox="0 0 560 160" className="absolute inset-0 h-full w-full" aria-hidden>
         <defs>
           <linearGradient id="route" x1="0" x2="1">
-            <stop offset="0" stopColor="#5ce1ff" />
-            <stop offset="1" stopColor="#a78bfa" />
+            <stop offset="0" stopColor="#ff7a1a" />
+            <stop offset="1" stopColor="#c9c9cf" />
           </linearGradient>
         </defs>
         {/* city grid dots */}
@@ -76,11 +76,11 @@ function DeliveryMap({ reduce }: { reduce: boolean }) {
           viewport={{ once: true }}
           transition={{ duration: 2, ease: EASE }}
         />
-        <circle cx="30" cy="120" r="7" fill="#5ce1ff" />
-        <circle cx="520" cy="96" r="9" fill="none" stroke="#a78bfa" strokeWidth="2" />
-        <circle cx="520" cy="96" r="4" fill="#a78bfa" />
+        <circle cx="30" cy="120" r="7" fill="#ff7a1a" />
+        <circle cx="520" cy="96" r="9" fill="none" stroke="#c9c9cf" strokeWidth="2" />
+        <circle cx="520" cy="96" r="4" fill="#c9c9cf" />
         {!reduce && (
-          <circle r="6" fill="#eef4ff">
+          <circle r="6" fill="#f5f3f0">
             <animateMotion dur="4.5s" repeatCount="indefinite" path={path} />
           </circle>
         )}
@@ -148,15 +148,15 @@ export function WhyUs() {
 
       {/* Bento: 4×2 on desktop — delivery (wide), live chat (tall), four single tiles */}
       <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-flow-dense lg:grid-cols-4 lg:grid-rows-[310px_310px]">
-        <Tile tint="#5ce1ff" icon={Truck} title="48h express, insured" copy="Tracked and signature-on-delivery. Free on orders over $1,500." className="sm:col-span-2" delay={0}>
+        <Tile tint="#ff7a1a" icon={Truck} title="48h express, insured" copy="Tracked and signature-on-delivery. Free on orders over $1,500." className="sm:col-span-2" delay={0}>
           <DeliveryMap reduce={reduce} />
         </Tile>
 
-        <Tile tint="#a78bfa" icon={Headphones} title="Humans, 24/7" copy="Real technicians on chat and phone — not bots." className="sm:col-span-2 lg:col-span-1 lg:col-start-3 lg:row-span-2" delay={0.08}>
+        <Tile tint="#c9c9cf" icon={Headphones} title="Humans, 24/7" copy="Real technicians on chat and phone — not bots." className="sm:col-span-2 lg:col-span-1 lg:col-start-3 lg:row-span-2" delay={0.08}>
           <Chat />
         </Tile>
 
-        <Tile tint="#f472b6" icon={BadgeCheck} title="Genuine, always" copy="Authorised stock only, serial-verified before it ships." delay={0.12}>
+        <Tile tint="#ffb35c" icon={BadgeCheck} title="Genuine, always" copy="Authorised stock only, serial-verified before it ships." delay={0.12}>
           <div className="relative grid h-full place-items-center">
             <div className="relative w-full max-w-[210px] overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 font-mono text-[11px] text-bone/80">
               <p className="text-mist">SERIAL</p>
@@ -169,7 +169,7 @@ export function WhyUs() {
           </div>
         </Tile>
 
-        <Tile tint="#8b5cf6" icon={ShieldCheck} title="2-year warranty" copy="Stacks on the maker’s. Damage cover from $9/mo." delay={0.16}>
+        <Tile tint="#f59e0b" icon={ShieldCheck} title="2-year warranty" copy="Stacks on the maker’s. Damage cover from $9/mo." delay={0.16}>
           <div className="grid h-full place-items-center">
             <div className="relative grid h-28 w-28 place-items-center">
               <svg viewBox="0 0 100 100" className={`absolute inset-0 h-full w-full ${reduce ? '' : 'animate-[spin-slow_18s_linear_infinite]'}`} aria-hidden>
@@ -189,9 +189,9 @@ export function WhyUs() {
           </div>
         </Tile>
 
-        <Tile tint="#22d3ee" icon={CreditCard} title="Secure payments" copy="PCI-DSS Level 1, 3-D Secure, pay-in-4 at 0% APR." delay={0.2}>
+        <Tile tint="#fb923c" icon={CreditCard} title="Secure payments" copy="PCI-DSS Level 1, 3-D Secure, pay-in-4 at 0% APR." delay={0.2}>
           <div className="relative grid h-full place-items-center">
-            {['#5ce1ff', '#a78bfa', '#f472b6'].map((c, i) => (
+            {['#ff7a1a', '#c9c9cf', '#ffb35c'].map((c, i) => (
               <motion.div
                 key={c}
                 initial={{ rotate: 0, x: 0 }}
@@ -211,7 +211,7 @@ export function WhyUs() {
           </div>
         </Tile>
 
-        <Tile tint="#f472b6" icon={RotateCcw} title="30-day returns" copy="We collect from your door. No restocking fee." className="lg:col-start-4" delay={0.24}>
+        <Tile tint="#ffb35c" icon={RotateCcw} title="30-day returns" copy="We collect from your door. No restocking fee." className="lg:col-start-4" delay={0.24}>
           <div className="grid h-full place-items-center">
             <div className="relative grid h-24 w-24 place-items-center">
               <RotateCcw className={`h-20 w-20 text-plasma/80 ${reduce ? '' : 'animate-[spin-slow_9s_linear_infinite_reverse]'}`} strokeWidth={1} />

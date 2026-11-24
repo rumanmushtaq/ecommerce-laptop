@@ -94,7 +94,7 @@ function ProductCard({ product: p, feature }: { product: Product; feature: boole
           feature ? 'md:grid md:grid-cols-[1.25fr_1fr] md:gap-6' : ''
         }`}
         style={{
-          background: `linear-gradient(180deg, #0f1630, #0a0e1d) padding-box, linear-gradient(150deg, ${p.glow}, rgba(255,255,255,0.06) 42%, ${p.glow}66) border-box`,
+          background: `linear-gradient(180deg, #1a1a1c, #0e0e0f) padding-box, linear-gradient(150deg, ${p.glow}, rgba(255,255,255,0.06) 42%, ${p.glow}66) border-box`,
           boxShadow: `0 30px 80px -50px ${p.glow}`,
         }}
       >
@@ -104,7 +104,7 @@ function ProductCard({ product: p, feature }: { product: Product; feature: boole
         <div
           className={`relative rounded-[22px] p-3.5 ${feature ? 'md:row-span-2 md:min-h-[460px]' : ''}`}
           style={{
-            background: `radial-gradient(120% 80% at 50% -5%, ${p.glow}f2 0%, ${p.glow}80 34%, transparent 70%), linear-gradient(175deg, ${p.glow}55, #0f1630 82%)`,
+            background: `radial-gradient(120% 80% at 50% -5%, ${p.glow}f2 0%, ${p.glow}80 34%, transparent 70%), linear-gradient(175deg, ${p.glow}55, #1a1a1c 82%)`,
           }}
         >
           {/* studio texture (clipped to the stage): dot grid + soft highlight + hover light sweep */}

@@ -98,7 +98,7 @@ export function FinalCta() {
 
   return (
     <section id="newsletter" ref={ref} className="relative overflow-hidden py-24 md:py-36">
-      <div aria-hidden className="absolute inset-0 bg-[radial-gradient(55%_60%_at_75%_50%,rgba(92,225,255,0.22),transparent_70%)]" />
+      <div aria-hidden className="absolute inset-0 bg-[radial-gradient(55%_60%_at_75%_50%,rgba(255,122,26,0.22),transparent_70%)]" />
       <div className="relative mx-auto grid max-w-[1520px] items-center gap-10 section-pad lg:grid-cols-[1.1fr_1fr]">
         <div>
           <p className="eyebrow mb-6 flex items-center gap-3">

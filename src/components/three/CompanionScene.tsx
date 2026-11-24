@@ -273,8 +273,8 @@ export default function CompanionScene({ reduced, onReady }: { reduced: boolean;
     >
       <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(1.5)} flipflops={3} onFallback={() => setDpr(1)} />
       <StudioLights mood="brand" />
-      <pointLight position={[-6, 4, 4]} color="#5ce1ff" intensity={18} distance={20} decay={1.4} />
-      <pointLight position={[6, 2, 3]} color="#a78bfa" intensity={12} distance={20} decay={1.4} />
+      <pointLight position={[-6, 4, 4]} color="#ff7a1a" intensity={18} distance={20} decay={1.4} />
+      <pointLight position={[6, 2, 3]} color="#c9c9cf" intensity={12} distance={20} decay={1.4} />
       <Traveller reduced={reduced} />
     </Canvas>
   )

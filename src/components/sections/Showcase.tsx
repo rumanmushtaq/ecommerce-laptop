@@ -17,7 +17,7 @@ const chapters = [
     copy: 'A 16″ 3.2K tandem OLED, factory-calibrated to ΔE < 1 and shipped with its own colour report. True blacks, 1,000-nit HDR peaks, 120Hz of glass-smooth motion.',
     stat: '3.2K',
     statLabel: 'OLED · 120Hz · 100% DCI-P3',
-    color: '#5ce1ff',
+    color: '#ff7a1a',
   },
   {
     label: 'Performance',
@@ -25,7 +25,7 @@ const chapters = [
     copy: 'Core Ultra 9 and an RTX 5070 Ti share a 140 W envelope we tuned in-house — sustained, not boosted. 8K timelines scrub. Shaders compile while you blink.',
     stat: '24',
     statLabel: 'CPU cores · 140 W sustained',
-    color: '#a78bfa',
+    color: '#c9c9cf',
   },
   {
     label: 'Silence',
@@ -33,7 +33,7 @@ const chapters = [
     copy: 'A full-width vapour chamber and dual liquid-crystal-polymer fans keep it at 22 dB through spreadsheets and editing. Only 16.9 mm at its thickest.',
     stat: '22dB',
     statLabel: 'under everyday load',
-    color: '#b48cff',
+    color: '#a1a1aa',
   },
   {
     label: 'Craft',

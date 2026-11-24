@@ -25,9 +25,9 @@ const UI = {
   line: 'rgba(255,255,255,0.07)',
   hi: '#ece9f5',
   lo: '#8f8ba3',
-  lavender: '#5ce1ff',
-  peach: '#f472b6',
-  mint: '#a78bfa',
+  lavender: '#ff7a1a',
+  peach: '#ffb35c',
+  mint: '#c9c9cf',
 }
 // next/font self-hosts fonts under generated family names; read them from its CSS variables
 const family = (v: string, fallback: string) => getComputedStyle(document.documentElement).getPropertyValue(v).trim() || fallback
@@ -147,16 +147,16 @@ function dock(ctx: Ctx, accent: string) {
   ctx.strokeStyle = 'rgba(255,255,255,0.18)'
   ctx.stroke()
   const palette = [
-    ['#5ce1ff', '#6f5ce0'],
-    ['#f472b6', '#ff7a8a'],
-    ['#a78bfa', '#3fb6a0'],
+    ['#ff7a1a', '#e8641c'],
+    ['#ffb35c', '#ff7a8a'],
+    ['#c9c9cf', '#3fb6a0'],
     ['#ffffff', '#c9c4dc'],
-    ['#8fb8ff', '#4f6fe6'],
+    ['#8fb8ff', '#f08a3c'],
     ['#ffd58a', '#ff9f5a'],
-    ['#ff5db1', '#b45cff'],
+    ['#ff4d1f', '#ff8a3d'],
     ['#2b2838', '#121019'],
-    ['#a78bfa', '#5d8cff'],
-    ['#7ee8ff', '#5ce1ff'],
+    ['#c9c9cf', '#5d8cff'],
+    ['#ff8a3d', '#ff7a1a'],
     [accent, '#2a2638'],
   ]
   palette.forEach(([a, b], i) => {
@@ -215,7 +215,7 @@ function videoApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   ctx.fillRect(0, 30, W, 44)
   text(ctx, 'Dune Sessions — Director’s Cut', W / 2, 58, 14, UI.hi, 500, SANS, 'center')
   ;['Import', 'Effects', 'Titles', 'Audio'].forEach((t, i) => {
-    fillRR(ctx, 16 + i * 92, 40, 82, 26, 7, i === 1 ? 'rgba(92,225,255,0.18)' : 'rgba(255,255,255,0.05)')
+    fillRR(ctx, 16 + i * 92, 40, 82, 26, 7, i === 1 ? 'rgba(255,122,26,0.18)' : 'rgba(255,255,255,0.05)')
     text(ctx, t, 57 + i * 92, 58, 12, i === 1 ? UI.lavender : UI.lo, 500, SANS, 'center')
   })
   fillRR(ctx, W - 118, 40, 100, 26, 7, a)
@@ -260,7 +260,7 @@ function videoApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   ;['Lift', 'Gamma', 'Gain'].forEach((t, i) => {
     const cx = 1250 + i * 120
     const g = ctx.createConicGradient(0, cx, 168)
-    ;['#ff6b6b', '#ffd36b', '#7bff9e', '#6bd8ff', '#8b5cf6', '#ff6bd5', '#ff6b6b'].forEach((col, k, arr) => g.addColorStop(k / (arr.length - 1), col))
+    ;['#ff6b6b', '#ffd36b', '#7bff9e', '#ffb070', '#f59e0b', '#ff7a3d', '#ff6b6b'].forEach((col, k, arr) => g.addColorStop(k / (arr.length - 1), col))
     ctx.beginPath()
     ctx.arc(cx, 168, 42, 0, Math.PI * 2)
     ctx.fillStyle = g
@@ -312,14 +312,14 @@ function videoApp(ctx: Ctx, img: HTMLImageElement, a: string) {
           for (let f = 0; f * 92 < cw; f++) cover(ctx, img, x + f * 92, y + 4, 92, 52, rand(k + f), 0.5, 2.2)
         })
       } else if (ti >= 3) {
-        fillRR(ctx, x, y + 4, cw - 4, 52, 6, ti === 3 ? 'rgba(167,139,250,0.22)' : 'rgba(244,114,182,0.18)')
+        fillRR(ctx, x, y + 4, cw - 4, 52, 6, ti === 3 ? 'rgba(201,201,207,0.22)' : 'rgba(255,179,92,0.18)')
         ctx.fillStyle = ti === 3 ? UI.mint : UI.peach
         for (let s = 0; s < cw - 10; s += 4) {
           const amp = (Math.abs(Math.sin((s + k * 50) / 23)) * 0.6 + rand(s + k) * 0.4) * 20
           ctx.fillRect(x + 4 + s, y + 30 - amp / 2, 2, amp)
         }
       } else {
-        fillRR(ctx, x, y + 4, cw - 4, 52, 6, ti === 0 ? 'rgba(92,225,255,0.55)' : 'rgba(139,92,246,0.35)')
+        fillRR(ctx, x, y + 4, cw - 4, 52, 6, ti === 0 ? 'rgba(255,122,26,0.55)' : 'rgba(245,158,11,0.35)')
         text(ctx, ti === 0 ? 'Title — Dunes' : 'Grade layer', x + 12, y + 35, 12, '#fff', 500)
       }
       x += w
@@ -358,7 +358,7 @@ function photoApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   ctx.fillRect(0, 30, 250, H - 30)
   text(ctx, 'PRESETS', 20, 62, 11, UI.lo, 600, MONO)
   ;['Original', 'Nordic Fade', 'Velvet Dusk', 'Glacier', 'Kodak 400', 'Mono Silk', 'Lavender Haze', 'Golden Hour', 'Matte Ink'].forEach((p, i) => {
-    if (i === 6) fillRR(ctx, 10, 78 + i * 38, 230, 32, 8, 'rgba(92,225,255,0.16)')
+    if (i === 6) fillRR(ctx, 10, 78 + i * 38, 230, 32, 8, 'rgba(255,122,26,0.16)')
     text(ctx, p, 22, 99 + i * 38, 14, i === 6 ? UI.lavender : UI.hi, i === 6 ? 600 : 400)
   })
   // canvas
@@ -388,7 +388,7 @@ function photoApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   text(ctx, 'HISTOGRAM', 1250, 62, 11, UI.lo, 600, MONO)
   fillRR(ctx, 1250, 74, 330, 120, 8, '#0f0e14')
   const hist = histogram(img)
-  ;['rgba(255,110,110,0.55)', 'rgba(110,255,170,0.45)', 'rgba(120,150,255,0.55)'].forEach((col, ch) => {
+  ;['rgba(255,110,110,0.55)', 'rgba(110,255,170,0.45)', 'rgba(240,138,60,0.55)'].forEach((col, ch) => {
     ctx.beginPath()
     ctx.moveTo(1250, 194)
     hist[ch].forEach((v, i) => ctx.lineTo(1250 + (i / 63) * 330, 194 - Math.sqrt(v) * 110))
@@ -476,8 +476,8 @@ function drawCodeLine(ctx: Ctx, line: string, x: number, y: number) {
     let col = '#dcd8ea'
     if (p.startsWith("'")) col = UI.peach
     else if (/^\d/.test(p)) col = UI.mint
-    else if (KEYWORDS.test(p)) col = '#c4a7ff'
-    else if (/^[A-Z][A-Za-z]+$/.test(p)) col = '#a78bfa'
+    else if (KEYWORDS.test(p)) col = '#ffc08a'
+    else if (/^[A-Z][A-Za-z]+$/.test(p)) col = '#c9c9cf'
     else if (/^(className|key|initial|whileInView|transition|layout|queryKey|queryFn|staleTime|limit|data|isLoading)$/.test(p)) col = '#8fb8ff'
     else if (/[{}()<>/=[\]]/.test(p)) col = '#9f9ab5'
     ctx.fillStyle = col
@@ -518,7 +518,7 @@ function codeApp(ctx: Ctx, img: HTMLImageElement, a: string) {
     [0, 'vite.config.ts'],
   ]
   tree.forEach(([d, n, on], i) => {
-    if (on) fillRR(ctx, x + 58, y + 82 + i * 30, 238, 26, 6, 'rgba(92,225,255,0.14)')
+    if (on) fillRR(ctx, x + 58, y + 82 + i * 30, 238, 26, 6, 'rgba(255,122,26,0.14)')
     text(ctx, n, x + 74 + d * 16, y + 100 + i * 30, 14, on ? UI.hi : '#b3afc6')
   })
   // tabs
@@ -550,7 +550,7 @@ function codeApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   ctx.fillRect(x + 352 + 290, y + 108 + 17 * 22 - 15, 2, 19)
   // minimap
   lines.forEach((l, i) => {
-    ctx.fillStyle = i === 17 ? 'rgba(92,225,255,0.6)' : 'rgba(255,255,255,0.14)'
+    ctx.fillStyle = i === 17 ? 'rgba(255,122,26,0.6)' : 'rgba(255,255,255,0.14)'
     ctx.fillRect(x + w - 110, y + 92 + i * 6, Math.min(80, l.length * 1.4), 3)
   })
   // terminal
@@ -585,18 +585,18 @@ function dashboardApp(ctx: Ctx, img: HTMLImageElement, _accent: string) {
   ctx.fillStyle = '#efedf5'
   ctx.fillRect(x, y + 40, 230, h - 40)
   ;['Overview', 'Revenue', 'Customers', 'Inventory', 'Fleet devices', 'Reports', 'Settings'].forEach((n, i) => {
-    if (i === 1) fillRR(ctx, x + 12, y + 60 + i * 42, 206, 34, 8, '#e3ddff')
-    text(ctx, n, x + 30, y + 83 + i * 42, 15, i === 1 ? '#4b3fb5' : '#4a4658', i === 1 ? 600 : 400)
+    if (i === 1) fillRR(ctx, x + 12, y + 60 + i * 42, 206, 34, 8, '#ffe6d1')
+    text(ctx, n, x + 30, y + 83 + i * 42, 15, i === 1 ? '#b8501a' : '#4a4658', i === 1 ? 600 : 400)
   })
   const cx = x + 260
   text(ctx, 'Revenue overview', cx, y + 92, 28, '#15131d', 600)
   text(ctx, 'Oct 1 – Dec 31, 2026 · updated 2 min ago', cx, y + 118, 14, '#7a7590')
   // KPIs
   const kpis: [string, string, string, string][] = [
-    ['Revenue', '$4.82M', '+18.4%', '#6f5ce0'],
+    ['Revenue', '$4.82M', '+18.4%', '#e8641c'],
     ['Orders', '12,940', '+9.1%', '#e2725b'],
     ['Avg. order', '$1,862', '+4.6%', '#2f9e86'],
-    ['Return rate', '1.8%', '−0.4%', '#4f6fe6'],
+    ['Return rate', '1.8%', '−0.4%', '#f08a3c'],
   ]
   kpis.forEach(([l, v, d, col], i) => {
     const kx = cx + i * 300
@@ -630,14 +630,14 @@ function dashboardApp(ctx: Ctx, img: HTMLImageElement, _accent: string) {
     ctx.fillRect(lx + 20, ly + 80 + g * 52, lw - 40, 1)
   }
   ;[
-    ['#6f5ce0', 0],
+    ['#e8641c', 0],
     ['#e2725b', 2.2],
   ].forEach(([col, ph], si) => {
     const pts: [number, number][] = []
     for (let s = 0; s <= 13; s++)
       pts.push([lx + 20 + (s / 13) * (lw - 40), ly + lh - 40 - (0.35 + s / 26 + Math.sin(s * 0.8 + (ph as number)) * 0.12 - si * 0.12) * 200])
     const g = ctx.createLinearGradient(0, ly + 60, 0, ly + lh)
-    g.addColorStop(0, si === 0 ? 'rgba(111,92,224,0.25)' : 'rgba(226,114,91,0.15)')
+    g.addColorStop(0, si === 0 ? 'rgba(232,100,28,0.25)' : 'rgba(226,114,91,0.15)')
     g.addColorStop(1, 'rgba(255,255,255,0)')
     ctx.beginPath()
     pts.forEach(([px, py], k) => (k ? ctx.lineTo(px, py) : ctx.moveTo(px, py)))
@@ -656,11 +656,11 @@ function dashboardApp(ctx: Ctx, img: HTMLImageElement, _accent: string) {
   fillRR(ctx, bx, ly, 404, lh, 14, '#ffffff')
   text(ctx, 'By category', bx + 20, ly + 34, 16, '#15131d', 600)
   const cats: [string, number, string][] = [
-    ['Gaming', 0.92, '#6f5ce0'],
-    ['Creative', 0.74, '#9b8cff'],
+    ['Gaming', 0.92, '#e8641c'],
+    ['Creative', 0.74, '#ffa060'],
     ['Business', 0.66, '#e2725b'],
     ['Ultrabook', 0.48, '#2f9e86'],
-    ['Everyday', 0.34, '#4f6fe6'],
+    ['Everyday', 0.34, '#f08a3c'],
   ]
   cats.forEach(([n, v, col], i) => {
     text(ctx, n, bx + 20, ly + 82 + i * 44, 13, '#4a4658')
@@ -684,7 +684,7 @@ function dashboardApp(ctx: Ctx, img: HTMLImageElement, _accent: string) {
     ctx.fillRect(tx + 20, ry - 24, lw + 384, 1)
     r.forEach((c, k) => {
       if (k === 3) {
-        const col = c === 'Delivered' ? '#2f9e86' : c === 'In transit' ? '#6f5ce0' : '#e2725b'
+        const col = c === 'Delivered' ? '#2f9e86' : c === 'In transit' ? '#e8641c' : '#e2725b'
         fillRR(ctx, tx + 24 + k * 240, ry - 17, 92, 24, 12, col + '22')
         text(ctx, c, tx + 70 + k * 240, ry, 12, col, 600, SANS, 'center')
       } else text(ctx, c, tx + 24 + k * 240, ry, 14, k === 4 ? '#15131d' : '#3c3848', k === 4 ? 600 : 400)
@@ -696,13 +696,13 @@ function gameApp(ctx: Ctx, img: HTMLImageElement, a: string) {
   cover(ctx, img, 0, 0, W, H, 0.5, 0.6, 1.08)
   // Cheap contrast punch instead of a full-screen CSS filter (filters are CPU-bound on canvas)
   ctx.globalCompositeOperation = 'overlay'
-  ctx.fillStyle = 'rgba(40,30,60,0.35)'
+  ctx.fillStyle = 'rgba(40,32,26,0.35)'
   ctx.fillRect(0, 0, W, H)
   ctx.globalCompositeOperation = 'source-over'
   // colour grade + vignette
   const grade = ctx.createLinearGradient(0, 0, W, H)
-  grade.addColorStop(0, 'rgba(139,92,246,0.22)')
-  grade.addColorStop(1, 'rgba(255,93,177,0.18)')
+  grade.addColorStop(0, 'rgba(245,158,11,0.22)')
+  grade.addColorStop(1, 'rgba(255,77,31,0.18)')
   ctx.globalCompositeOperation = 'soft-light'
   ctx.fillStyle = grade
   ctx.fillRect(0, 0, W, H)
@@ -905,7 +905,7 @@ export function getScreenTexture(spec: ScreenSpec) {
   canvas.width = cw
   canvas.height = ch
   const ctx = canvas.getContext('2d')!
-  ctx.fillStyle = '#070912'
+  ctx.fillStyle = '#0a0a0b'
   ctx.fillRect(0, 0, cw, ch)
   const tex = new CanvasTexture(canvas)
   tex.colorSpace = SRGBColorSpace
@@ -941,7 +941,7 @@ export function getRgbTexture() {
   canvas.height = 4
   const ctx = canvas.getContext('2d')!
   const g = ctx.createLinearGradient(0, 0, 256, 0)
-  ;['#5ce1ff', '#ff5db1', '#f472b6', '#a78bfa', '#8fb8ff', '#5ce1ff'].forEach((c, i, arr) => g.addColorStop(i / (arr.length - 1), c))
+  ;['#ff7a1a', '#ff4d1f', '#ffb35c', '#c9c9cf', '#8fb8ff', '#ff7a1a'].forEach((c, i, arr) => g.addColorStop(i / (arr.length - 1), c))
   ctx.fillStyle = g
   ctx.fillRect(0, 0, 256, 4)
   const tex = new CanvasTexture(canvas)
